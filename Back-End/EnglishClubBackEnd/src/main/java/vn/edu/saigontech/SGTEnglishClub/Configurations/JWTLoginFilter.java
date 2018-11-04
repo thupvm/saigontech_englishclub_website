@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,7 +20,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.google.gson.Gson;
 
+import vn.edu.saigontech.SGTEnglishClub.DAOs.AdminDAO;
+
+
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
+	
+
 	public JWTLoginFilter(String url, AuthenticationManager authManager) {
 		super(new AntPathRequestMatcher(url));
 		setAuthenticationManager(authManager);
@@ -41,6 +48,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
+		
+		
 		TokenAuthenticationService.addAuthentication(response, authResult.getName());
 	}
 

@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "admins", catalog = "sgt_englishclub")
 public class Admins implements java.io.Serializable {
@@ -20,6 +19,7 @@ public class Admins implements java.io.Serializable {
 	private String username;
 	private String password;
 	private String fullname;
+	private String role;
 	private boolean status;
 	private Set<News> newses = new HashSet<News>(0);
 	private Set<Materials> materialses = new HashSet<Materials>(0);
@@ -27,20 +27,50 @@ public class Admins implements java.io.Serializable {
 	private Set<Clips> clipses = new HashSet<Clips>(0);
 
 	public Admins() {
+		super();
 	}
 
-	public Admins(String username, String password, String fullname, boolean status) {
+	public Admins(String username, String password, String fullname, String role, boolean status) {
+		super();
 		this.username = username;
 		this.password = password;
 		this.fullname = fullname;
+		this.role = role;
 		this.status = status;
 	}
 
-	public Admins(String username, String password, String fullname, boolean status, Set<News> newses,
-			Set<Materials> materialses, Set<Tips> tipses, Set<Clips> clipses) {
+	public Admins(Integer id, String username, String password, String fullname, String role, boolean status) {
+		super();
+		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.fullname = fullname;
+		this.role = role;
+		this.status = status;
+	}
+
+	public Admins(String username, String password, String fullname, String role, boolean status, Set<News> newses,
+			Set<Materials> materialses, Set<Tips> tipses, Set<Clips> clipses) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.role = role;
+		this.status = status;
+		this.newses = newses;
+		this.materialses = materialses;
+		this.tipses = tipses;
+		this.clipses = clipses;
+	}
+
+	public Admins(Integer id, String username, String password, String fullname, String role, boolean status,
+			Set<News> newses, Set<Materials> materialses, Set<Tips> tipses, Set<Clips> clipses) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.role = role;
 		this.status = status;
 		this.newses = newses;
 		this.materialses = materialses;
@@ -85,6 +115,16 @@ public class Admins implements java.io.Serializable {
 
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
+	}
+	
+	
+	@Column(name = "ROLE", nullable = false, length = 10)
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Column(name = "STATUS", nullable = false)
@@ -131,5 +171,14 @@ public class Admins implements java.io.Serializable {
 	public void setClipses(Set<Clips> clipses) {
 		this.clipses = clipses;
 	}
+
+	@Override
+	public String toString() {
+		return "Admins [id=" + id + ", username=" + username + ", password=" + password + ", fullname=" + fullname
+				+ ", role=" + role + ", status=" + status + ", newses=" + newses + ", materialses=" + materialses
+				+ ", tipses=" + tipses + ", clipses=" + clipses + "]";
+	}
+	
+	
 
 }

@@ -23,17 +23,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("admin").password("123456").roles("ADMIN");
 		auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery("select USERNAME, PASSWORD, STATUS" + " from USERS where USERNAME=?")
-				.authoritiesByUsernameQuery("select USERNAME, ROLE" + " from USERS where USERNAME=?");
+				.usersByUsernameQuery("select USERNAME, PASSWORD, STATUS" + " from ADMINS where USERNAME=?")
+				.authoritiesByUsernameQuery("select USERNAME, ROLE" + " from ADMINS where USERNAME=?");
 	}
-
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().antMatcher("/rest/**").authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/rest/manage/login").permitAll().antMatchers("/rest/**").authenticated()
-				.and().exceptionHandling().authenticationEntryPoint(new AccessDeniedEntryPoint()).and()
-				.addFilterBefore(new JWTLoginFilter("/rest/manage/login", authenticationManager()),
+		http.csrf().disable()
+				.authorizeRequests()
+				.antMatchers(HttpMethod.POST, "/login").permitAll() 
+				.antMatchers("/manage/**").authenticated()
+				.anyRequest().permitAll()
+				.and()
+				.exceptionHandling().authenticationEntryPoint(new AccessDeniedEntryPoint())
+				.and()
+				.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
 						UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.exceptionHandling().accessDeniedPage("/403");

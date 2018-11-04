@@ -15,6 +15,8 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import vn.edu.saigontech.SGTEnglishClub.DAOs.AdminDAO;
+
 @Configuration
 @ComponentScan("vn.edu.saigontech.SGTEnglishClub.*")
 @EnableTransactionManagement
@@ -61,6 +63,11 @@ public class ApplicationContextConfig {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
 
 		return transactionManager;
+	}
+	
+	@Bean(name = "adminDAO")
+	public AdminDAO getAdminDAO() {
+		return new AdminDAO();
 	}
 
 }
