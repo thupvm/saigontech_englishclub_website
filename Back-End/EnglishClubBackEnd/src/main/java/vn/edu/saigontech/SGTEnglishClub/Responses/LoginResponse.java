@@ -1,21 +1,22 @@
 package vn.edu.saigontech.SGTEnglishClub.Responses;
 
 public class LoginResponse {
-	private int adminID;
+	private String userName;
 	private String token;
-	public LoginResponse(int adminID, String token) {
+	public LoginResponse(String userName, String token) {
 		super();
-		this.adminID = adminID;
+		this.userName = userName;
 		this.token = token;
 	}
-	public LoginResponse() {
-		super();
+	@Override
+	public String toString() {
+		return "LoginResponse []";
 	}
-	public int getAdminID() {
-		return adminID;
+	public String getUserName() {
+		return userName;
 	}
-	public void setAdminID(int adminID) {
-		this.adminID = adminID;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getToken() {
 		return token;
@@ -23,6 +24,8 @@ public class LoginResponse {
 	public void setToken(String token) {
 		this.token = token;
 	}
+	
+	
 	
 	
 

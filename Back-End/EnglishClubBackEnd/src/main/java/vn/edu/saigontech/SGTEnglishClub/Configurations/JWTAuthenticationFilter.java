@@ -14,8 +14,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
+import vn.edu.saigontech.SGTEnglishClub.Responses.CustomResponseEntity;
 
 public class JWTAuthenticationFilter extends GenericFilterBean {
 
@@ -29,16 +32,27 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			chain.doFilter(request, response);
 		} catch (ExpiredJwtException e) {
-			System.out.println("Expire token");
-			
-			res.getWriter().write("token expired");
+			res.setStatus(HttpStatus.BAD_REQUEST.value());
+			res.setContentType("application/json");
+			CustomResponseEntity cre = new CustomResponseEntity();
+			cre.setErrorCode(3);
+			cre.setMessage("Log in time out");
+			cre.setData(null);
+			String json = new ObjectMapper().writeValueAsString(cre);
+
+			res.getWriter().write(json);
 			res.flushBuffer();
 			
 		} catch (MalformedJwtException e) {
-			
 			res.setStatus(HttpStatus.BAD_REQUEST.value());
-			
-			res.getWriter().write("Invalid token");
+			res.setContentType("application/json");
+			CustomResponseEntity cre = new CustomResponseEntity();
+			cre.setErrorCode(4);
+			cre.setMessage("Are you hacking ?");
+			cre.setData(null);
+			String json = new ObjectMapper().writeValueAsString(cre);
+
+			res.getWriter().write(json);
 			res.flushBuffer();
 		}
 		

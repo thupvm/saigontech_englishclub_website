@@ -2,30 +2,31 @@ package vn.edu.saigontech.SGTEnglishClub.Configurations;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Collections;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
 
 import vn.edu.saigontech.SGTEnglishClub.DAOs.AdminDAO;
 
-
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
-	
 
+	
+	
 	public JWTLoginFilter(String url, AuthenticationManager authManager) {
 		super(new AntPathRequestMatcher(url));
 		setAuthenticationManager(authManager);
@@ -35,21 +36,18 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
-		
+
 		LoginRequest logReq = getLoginRequest(request);
-		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(logReq.getUsername(), logReq.getPassword());
+		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(logReq.getUsername(),
+				logReq.getPassword());
 		return getAuthenticationManager().authenticate(authRequest);
-		
-	
+
 	}
-	
-	
 
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
-		
-		
+		;
 		TokenAuthenticationService.addAuthentication(response, authResult.getName());
 	}
 
@@ -58,28 +56,28 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 			AuthenticationException failed) throws IOException, ServletException {
 		TokenAuthenticationService.failAuthentication(response, failed.getMessage());
 	}
-	
-	private LoginRequest getLoginRequest(HttpServletRequest request) {
-        BufferedReader reader = null;
-        LoginRequest loginRequest = null;
-        try {
-            reader = request.getReader();
-            Gson gson = new Gson();
-            loginRequest = gson.fromJson(reader, LoginRequest.class);
-        } catch (IOException ex) {
-            logger.error(null, ex);
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException ex) {
-                logger.error(null, ex);
-            }
-        }
 
-        if (loginRequest == null) {
-            loginRequest = new LoginRequest();
-        }
-        return loginRequest;
-    }
+	private LoginRequest getLoginRequest(HttpServletRequest request) {
+		BufferedReader reader = null;
+		LoginRequest loginRequest = null;
+		try {
+			reader = request.getReader();
+			Gson gson = new Gson();
+			loginRequest = gson.fromJson(reader, LoginRequest.class);
+		} catch (IOException ex) {
+			logger.error(null, ex);
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException ex) {
+				logger.error(null, ex);
+			}
+		}
+
+		if (loginRequest == null) {
+			loginRequest = new LoginRequest();
+		}
+		return loginRequest;
+	}
 
 }

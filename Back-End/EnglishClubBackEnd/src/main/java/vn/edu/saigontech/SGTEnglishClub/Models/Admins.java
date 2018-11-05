@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "admins", catalog = "sgt_englishclub")
 public class Admins implements java.io.Serializable {
@@ -90,7 +92,7 @@ public class Admins implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "USERNAME", nullable = false, length = 50)
+	@Column(name = "USERNAME", nullable = false, length = 50, unique = true)
 	public String getUsername() {
 		return this.username;
 	}
@@ -135,7 +137,8 @@ public class Admins implements java.io.Serializable {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-
+	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "admins")
 	public Set<News> getNewses() {
 		return this.newses;
@@ -144,7 +147,7 @@ public class Admins implements java.io.Serializable {
 	public void setNewses(Set<News> newses) {
 		this.newses = newses;
 	}
-
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "admins")
 	public Set<Materials> getMaterialses() {
 		return this.materialses;
@@ -153,7 +156,7 @@ public class Admins implements java.io.Serializable {
 	public void setMaterialses(Set<Materials> materialses) {
 		this.materialses = materialses;
 	}
-
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "admins")
 	public Set<Tips> getTipses() {
 		return this.tipses;
@@ -162,7 +165,7 @@ public class Admins implements java.io.Serializable {
 	public void setTipses(Set<Tips> tipses) {
 		this.tipses = tipses;
 	}
-
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "admins")
 	public Set<Clips> getClipses() {
 		return this.clipses;

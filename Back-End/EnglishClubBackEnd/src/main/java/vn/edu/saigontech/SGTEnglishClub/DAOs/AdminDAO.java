@@ -8,28 +8,26 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.edu.saigontech.SGTEnglishClub.Models.Admins;
+
 @Transactional
 public class AdminDAO {
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	public int getIDbyUsername(String username) {
+
+	public Admins getAdminbyUsername(String username) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			
-			Query qry = session.createQuery("select a.id from Admins a where a.username like :uname")
-					.setString("uname", username);
-			
-			int res = (int) qry.list().get(0);
-			
-			return res;
+
+			Query<?> qry = session.createQuery("from Admins a where a.username like :uname").setString("uname",
+					username);
+
+			return (Admins) qry.list().get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return -1;
+			return null;
 		}
 	}
-	
-	
 
 }
