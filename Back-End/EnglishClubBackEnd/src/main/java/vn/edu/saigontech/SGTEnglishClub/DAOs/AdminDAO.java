@@ -16,16 +16,15 @@ public class AdminDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public Admins getAdminbyUsername(String username) {
+	public Admins getAdminbyUsername(String username, String password) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 
-			Query<?> qry = session.createQuery("from Admins a where a.username like :uname").setString("uname",
-					username);
+			Query<?> qry = session.createQuery("from Admins a where a.username = :uname and a.password = :pword")
+					.setParameter("uname", username).setParameter("pword", password);
 
 			return (Admins) qry.list().get(0);
 		} catch (Exception e) {
-			e.printStackTrace();
 			return null;
 		}
 	}

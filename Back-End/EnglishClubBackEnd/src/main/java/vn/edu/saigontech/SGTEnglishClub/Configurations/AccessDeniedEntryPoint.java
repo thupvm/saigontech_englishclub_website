@@ -21,11 +21,8 @@ public class AccessDeniedEntryPoint implements AuthenticationEntryPoint {
 			AuthenticationException authException) throws IOException, ServletException {
 		res.setStatus(HttpStatus.BAD_REQUEST.value());
 		res.setContentType("application/json");
-		CustomResponseEntity cre = new CustomResponseEntity();
-		cre.setErrorCode(5);
-		cre.setMessage("You are not allowed in here");
-		cre.setData(null);
-		String json = new ObjectMapper().writeValueAsString(cre);
+		
+		String json = new ObjectMapper().writeValueAsString(CustomResponseEntity.getAccessDeniedResponse());
 
 		res.getWriter().write(json);
 		res.flushBuffer();

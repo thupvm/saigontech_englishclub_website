@@ -1,32 +1,48 @@
 package vn.edu.saigontech.SGTEnglishClub.Responses;
 
 public class LoginResponse {
-	private String userName;
-	private String token;
-	public LoginResponse(String userName, String token) {
+	private int adminID;
+	private String fullName;
+	private String accessToken;
+
+	public LoginResponse(int adminID, String fullName, String accessToken) {
 		super();
-		this.userName = userName;
-		this.token = token;
+		this.adminID = adminID;
+		this.fullName = fullName;
+		this.accessToken = accessToken;
 	}
+
+	public LoginResponse() {
+		super();
+	}
+
+	public int getAdminID() {
+		return adminID;
+	}
+
+	public void setAdminID(int adminID) {
+		this.adminID = adminID;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+
 	@Override
 	public String toString() {
-		return "LoginResponse []";
+		return "LoginResponse [adminID=" + adminID + ", fullName=" + fullName + ", accessToken=" + accessToken + "]";
 	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
-	}
-	
-	
-	
-	
 
 }

@@ -23,6 +23,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import vn.edu.saigontech.SGTEnglishClub.DAOs.AdminDAO;
 import vn.edu.saigontech.SGTEnglishClub.Responses.CustomResponseEntity;
 import vn.edu.saigontech.SGTEnglishClub.Responses.LoginResponse;
+import vn.edu.saigontech.SGTEnglishClub.Responses.LoginResponseStandard;
 
 public class TokenAuthenticationService {
 	static final long EXPIRATIONTIME = 120_000;
@@ -41,13 +42,18 @@ public class TokenAuthenticationService {
 		cre.setErrorCode(0);
 		cre.setMessage("Log in successfully");
 
-		LoginResponse lR = new LoginResponse(username, JWT);
-		cre.setData(lR);
+		LoginResponseStandard lrs = new LoginResponseStandard(username, JWT);
+		cre.setData(lrs);
 		String json = new ObjectMapper().writeValueAsString(cre);
 
 		res.getWriter().write(json);
 		res.flushBuffer();
 
+	}
+
+	public static String getValidateToken(String username) {
+		return Jwts.builder().setSubject(username).setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
+				.signWith(SignatureAlgorithm.HS256, SECRET).compact();
 	}
 
 	public static Authentication getAuthentication(HttpServletRequest request) {
@@ -64,11 +70,8 @@ public class TokenAuthenticationService {
 	public static void failAuthentication(HttpServletResponse res, String failException) throws IOException {
 		res.setStatus(HttpStatus.BAD_REQUEST.value());
 		res.setContentType("application/json");
-		CustomResponseEntity cre = new CustomResponseEntity();
-		cre.setErrorCode(1);
-		cre.setMessage("Wrong username or password");
-		cre.setData(null);
-		String json = new ObjectMapper().writeValueAsString(cre);
+		
+		String json = new ObjectMapper().writeValueAsString(CustomResponseEntity.getWrongUsernamePassword());
 
 		res.getWriter().write(json);
 		res.flushBuffer();

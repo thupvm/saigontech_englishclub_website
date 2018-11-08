@@ -34,11 +34,8 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
 		} catch (ExpiredJwtException e) {
 			res.setStatus(HttpStatus.BAD_REQUEST.value());
 			res.setContentType("application/json");
-			CustomResponseEntity cre = new CustomResponseEntity();
-			cre.setErrorCode(3);
-			cre.setMessage("Log in time out");
-			cre.setData(null);
-			String json = new ObjectMapper().writeValueAsString(cre);
+			
+			String json = new ObjectMapper().writeValueAsString(CustomResponseEntity.getExpiredTimeResponse());
 
 			res.getWriter().write(json);
 			res.flushBuffer();
@@ -46,11 +43,8 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
 		} catch (MalformedJwtException e) {
 			res.setStatus(HttpStatus.BAD_REQUEST.value());
 			res.setContentType("application/json");
-			CustomResponseEntity cre = new CustomResponseEntity();
-			cre.setErrorCode(4);
-			cre.setMessage("Are you hacking ?");
-			cre.setData(null);
-			String json = new ObjectMapper().writeValueAsString(cre);
+			
+			String json = new ObjectMapper().writeValueAsString(CustomResponseEntity.getHackerWarningResponse());
 
 			res.getWriter().write(json);
 			res.flushBuffer();

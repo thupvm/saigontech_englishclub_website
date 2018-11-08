@@ -29,9 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
+		http.cors().and().csrf().disable()
 				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/login").permitAll() 
+				.antMatchers(HttpMethod.POST, "/login").permitAll()
+				.antMatchers(HttpMethod.POST, "/manage/login").permitAll()
 				.antMatchers("/manage/**").authenticated()
 				.anyRequest().permitAll()
 				.and()
