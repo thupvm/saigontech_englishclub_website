@@ -1,121 +1,148 @@
 package vn.edu.saigontech.SGTEnglishClub.Models;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "news", catalog = "sgt_englishclub")
-public class News implements java.io.Serializable {
-
-	private Integer id;
-	private Admins admins;
-	private NewsTypes newsTypes;
+@Table(name= "news")
+public class news {
+	@Id
+	@Column(unique=true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(nullable = false, length = 50)
 	private String title;
-	private String titlePicture;
-	private Date uploadPeriod;
+	
+	@Column(length = 50)
+	private String thumbnail_picture_title;
+	
+	@Column(length = 50)
+	private String big_picture_title;
+	
+	@Column(nullable = false, length = 2000)
 	private String content;
+	
+	private int admin_id;
+	
+	private int news_type_id;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date postDate;
+	
 	private boolean status;
-
-	public News() {
+	
+	@ManyToOne
+	@JoinColumn(name="admin")
+	private admin admin;
+	
+	@ManyToOne
+	@JoinColumn(name="news_types")
+	private news_types news_types;
+	
+	public news() {
+		super();
 	}
-
-	public News(Admins admins, NewsTypes newsTypes, String title, String titlePicture, Date uploadPeriod,
-			String content, boolean status) {
-		this.admins = admins;
-		this.newsTypes = newsTypes;
+	public news(String title, String thumbnail_picture_title, String big_picture_title, String content, int admin_id,
+			int news_type_id, Date postDate, boolean status) {
+		super();
 		this.title = title;
-		this.titlePicture = titlePicture;
-		this.uploadPeriod = uploadPeriod;
+		this.thumbnail_picture_title = thumbnail_picture_title;
+		this.big_picture_title = big_picture_title;
 		this.content = content;
+		this.admin_id = admin_id;
+		this.news_type_id = news_type_id;
+		this.postDate = postDate;
 		this.status = status;
 	}
-
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-
-	@Column(name = "ID", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
+	public news(int id, String title, String thumbnail_picture_title, String big_picture_title, String content,
+			int admin_id, int news_type_id, Date postDate, boolean status) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.thumbnail_picture_title = thumbnail_picture_title;
+		this.big_picture_title = big_picture_title;
+		this.content = content;
+		this.admin_id = admin_id;
+		this.news_type_id = news_type_id;
+		this.postDate = postDate;
+		this.status = status;
 	}
-
-	public void setId(Integer id) {
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
 		this.id = id;
 	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ADMIN_ID", nullable = false)
-	public Admins getAdmins() {
-		return this.admins;
-	}
-
-	public void setAdmins(Admins admins) {
-		this.admins = admins;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "NEWS__TYPE_ID", nullable = false)
-	public NewsTypes getNewsTypes() {
-		return this.newsTypes;
-	}
-
-	public void setNewsTypes(NewsTypes newsTypes) {
-		this.newsTypes = newsTypes;
-	}
-
-	@Column(name = "TITLE", nullable = false, length = 100)
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-	@Column(name = "TITLE_PICTURE", nullable = false)
-	public String getTitlePicture() {
-		return this.titlePicture;
+	public String getThumbnail_picture_title() {
+		return thumbnail_picture_title;
 	}
-
-	public void setTitlePicture(String titlePicture) {
-		this.titlePicture = titlePicture;
+	public void setThumbnail_picture_title(String thumbnail_picture_title) {
+		this.thumbnail_picture_title = thumbnail_picture_title;
 	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPLOAD_PERIOD", nullable = false, length = 19)
-	public Date getUploadPeriod() {
-		return this.uploadPeriod;
+	public String getBig_picture_title() {
+		return big_picture_title;
 	}
-
-	public void setUploadPeriod(Date uploadPeriod) {
-		this.uploadPeriod = uploadPeriod;
+	public void setBig_picture_title(String big_picture_title) {
+		this.big_picture_title = big_picture_title;
 	}
-
-	@Column(name = "CONTENT", nullable = false, length = 16777215)
 	public String getContent() {
-		return this.content;
+		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-	@Column(name = "STATUS", nullable = false)
-	public boolean isStatus() {
-		return this.status;
+	public int getAdmin_id() {
+		return admin_id;
 	}
-
+	public void setAdmin_id(int admin_id) {
+		this.admin_id = admin_id;
+	}
+	public int getNews_type_id() {
+		return news_type_id;
+	}
+	public void setNews_type_id(int news_type_id) {
+		this.news_type_id = news_type_id;
+	}
+	public Date getPostDate() {
+		return postDate;
+	}
+	public void setPostDate(Date postDate) {
+		this.postDate = postDate;
+	}
+	public boolean isStatus() {
+		return status;
+	}
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	@Override
+	public String toString() {
+		return "news [id=" + id + ", title=" + title + ", thumbnail_picture_title=" + thumbnail_picture_title
+				+ ", big_picture_title=" + big_picture_title + ", content=" + content + ", admin_id=" + admin_id
+				+ ", news_type_id=" + news_type_id + ", postDate=" + postDate + ", status=" + status + ", admin="
+				+ admin + ", news_type=" + news_types + "]";
+	}
+	
+	
+	
 
 }

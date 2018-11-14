@@ -1,71 +1,80 @@
 package vn.edu.saigontech.SGTEnglishClub.Models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "files", catalog = "sgt_englishclub")
-public class Files implements java.io.Serializable {
-
-	private Integer id;
-	private Materials materials;
-	private String name;
-	private boolean status;
-
-	public Files() {
-	}
-
-	public Files(Materials materials, String name, boolean status) {
-		this.materials = materials;
-		this.name = name;
+@Table(name= "files")
+public class files {
+	
+	@Id
+	@Column(nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(nullable = false, length = 100)
+	private String nameFile;
+	
+	@Column(length = 50)
+	private String image_Name;
+	
+	private int ematerial_id;
+	
+	private String status;
+	
+	@ManyToOne
+	@JoinColumn(name="ematerials")
+	private ematerials ematerials;
+	
+	public files(int id, String nameFile, String image_Name, int ematerial_id, String status) {
+		super();
+		this.id = id;
+		this.nameFile = nameFile;
+		this.image_Name = image_Name;
+		this.ematerial_id = ematerial_id;
 		this.status = status;
 	}
-
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-
-	@Column(name = "ID", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
+	public int getId() {
+		return id;
 	}
-
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MATERIAL_ID", nullable = false)
-	public Materials getMaterials() {
-		return this.materials;
+	public String getNameFile() {
+		return nameFile;
 	}
-
-	public void setMaterials(Materials materials) {
-		this.materials = materials;
+	public void setNameFile(String nameFile) {
+		this.nameFile = nameFile;
 	}
-
-	@Column(name = "NAME", nullable = false, length = 1000)
-	public String getName() {
-		return this.name;
+	public String getImage_Name() {
+		return image_Name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setImage_Name(String image_Name) {
+		this.image_Name = image_Name;
 	}
-
-	@Column(name = "STATUS", nullable = false)
-	public boolean isStatus() {
-		return this.status;
+	public int getEmaterial_id() {
+		return ematerial_id;
 	}
-
-	public void setStatus(boolean status) {
+	public void setEmaterial_id(int ematerial_id) {
+		this.ematerial_id = ematerial_id;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
+	
 
 }

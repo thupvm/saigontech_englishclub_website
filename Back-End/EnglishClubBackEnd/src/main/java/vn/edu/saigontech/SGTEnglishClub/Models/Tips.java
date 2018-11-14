@@ -1,121 +1,192 @@
 package vn.edu.saigontech.SGTEnglishClub.Models;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 @Entity
-@Table(name = "tips", catalog = "sgt_englishclub")
-public class Tips implements java.io.Serializable {
-
-	private Integer id;
-	private Admins admins;
-	private TipTypes tipTypes;
-	private String title;
-	private String titlePicture;
-	private Date uploadPeriod;
-	private String content;
-	private boolean status;
-
-	public Tips() {
-	}
-
-	public Tips(Admins admins, TipTypes tipTypes, String title, String titlePicture, Date uploadPeriod, String content,
-			boolean status) {
-		this.admins = admins;
-		this.tipTypes = tipTypes;
-		this.title = title;
-		this.titlePicture = titlePicture;
-		this.uploadPeriod = uploadPeriod;
-		this.content = content;
-		this.status = status;
-	}
-
+@Table(name= "tips")
+public class tips {
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-
-	@Column(name = "ID", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
+	@Column(unique=true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(nullable = false, length = 50)
+	private String title;
+	
+	@Column(length = 50)
+	private String thumbnail_picture_title;
+	
+	@Column(length = 50)
+	private String big_picture_title;
+	
+	@Column(length = 2000)
+	private String content;
+	
+	private int admin_id;
+	
+	private int tips_type_id;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date postDate;
+	
+	private boolean status;
+	
+	@ManyToOne
+	@JoinColumn(name="admin")
+	private admin admin;
+	
+	@ManyToOne
+	@JoinColumn(name="tips_types")
+	private tips_types tips_types;
+	
+	public tips() {
+		super();
+	}
+	
+	public tips(String title, String thumbnail_picture_title, String big_picture_title, String content,
+			int admin_id, int tips_type_id, Date postDate, boolean status,
+			vn.edu.saigontech.SGTEnglishClub.Models.admin admin, tips_types tips_types) {
+		super();
+		this.title = title;
+		this.thumbnail_picture_title = thumbnail_picture_title;
+		this.big_picture_title = big_picture_title;
+		this.content = content;
+		this.admin_id = admin_id;
+		this.tips_type_id = tips_type_id;
+		this.postDate = postDate;
+		this.status = status;
+		this.admin = admin;
+		this.tips_types = tips_types;
 	}
 
-	public void setId(Integer id) {
+
+	public tips(int id, String title, String thumbnail_picture_title, String big_picture_title, String content,
+			int admin_id, int tips_type_id, Date postDate, boolean status,
+			vn.edu.saigontech.SGTEnglishClub.Models.admin admin, tips_types tips_type) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.thumbnail_picture_title = thumbnail_picture_title;
+		this.big_picture_title = big_picture_title;
+		this.content = content;
+		this.admin_id = admin_id;
+		this.tips_type_id = tips_type_id;
+		this.postDate = postDate;
+		this.status = status;
+		this.admin = admin;
+		this.tips_types = tips_types;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ADMIN_ID", nullable = false)
-	public Admins getAdmins() {
-		return this.admins;
-	}
-
-	public void setAdmins(Admins admins) {
-		this.admins = admins;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TIP_TYPE_ID", nullable = false)
-	public TipTypes getTipTypes() {
-		return this.tipTypes;
-	}
-
-	public void setTipTypes(TipTypes tipTypes) {
-		this.tipTypes = tipTypes;
-	}
-
-	@Column(name = "TITLE", nullable = false, length = 100)
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	@Column(name = "TITLE_PICTURE", nullable = false)
-	public String getTitlePicture() {
-		return this.titlePicture;
+	public String getThumbnail_picture_title() {
+		return thumbnail_picture_title;
 	}
 
-	public void setTitlePicture(String titlePicture) {
-		this.titlePicture = titlePicture;
+	public void setThumbnail_picture_title(String thumbnail_picture_title) {
+		this.thumbnail_picture_title = thumbnail_picture_title;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPLOAD_PERIOD", nullable = false, length = 19)
-	public Date getUploadPeriod() {
-		return this.uploadPeriod;
+	public String getBig_picture_title() {
+		return big_picture_title;
 	}
 
-	public void setUploadPeriod(Date uploadPeriod) {
-		this.uploadPeriod = uploadPeriod;
+	public void setBig_picture_title(String big_picture_title) {
+		this.big_picture_title = big_picture_title;
 	}
 
-	@Column(name = "CONTENT", nullable = false, length = 16777215)
 	public String getContent() {
-		return this.content;
+		return content;
 	}
 
 	public void setContent(String content) {
 		this.content = content;
 	}
 
-	@Column(name = "STATUS", nullable = false)
+	public int getAdmin_id() {
+		return admin_id;
+	}
+
+	public void setAdmin_id(int admin_id) {
+		this.admin_id = admin_id;
+	}
+
+	public int getTips_type_id() {
+		return tips_type_id;
+	}
+
+	public void setTips_type_id(int tips_type_id) {
+		this.tips_type_id = tips_type_id;
+	}
+
+	public Date getPostDate() {
+		return postDate;
+	}
+
+	public void setPostDate(Date postDate) {
+		this.postDate = postDate;
+	}
+
 	public boolean isStatus() {
-		return this.status;
+		return status;
 	}
 
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
 
+	public admin getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(admin admin) {
+		this.admin = admin;
+	}
+
+	public tips_types getTips_type() {
+		return tips_types;
+	}
+
+	public void setTips_type(tips_types tips_types) {
+		this.tips_types = tips_types;
+	}
+
+	@Override
+	public String toString() {
+		return "tips [id=" + id + ", title=" + title + ", thumbnail_picture_title=" + thumbnail_picture_title
+				+ ", big_picture_title=" + big_picture_title + ", content=" + content + ", admin_id=" + admin_id
+				+ ", tips_type_id=" + tips_type_id + ", postDate=" + postDate + ", status=" + status + ", admin="
+				+ admin + ", tips_types=" + tips_types + "]";
+	}
+	
+	
+	
+	
+	
 }

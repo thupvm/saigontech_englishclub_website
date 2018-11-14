@@ -24,8 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery("select USERNAME, PASSWORD, STATUS" + " from ADMINS where USERNAME=?")
-				.authoritiesByUsernameQuery("select USERNAME, ROLE" + " from ADMINS where USERNAME=?");
+				.usersByUsernameQuery("select USERNAME, PASSWORD, STATUS" + " from admin where USERNAME=?")
+				.authoritiesByUsernameQuery("select USERNAME, ROLE" + " from admin where USERNAME=?");
 	}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
 				.antMatchers(HttpMethod.POST, "/manage/login").permitAll()
+				.antMatchers(HttpMethod.POST, "/manage/login1").permitAll()
 				.antMatchers("/manage/**").authenticated()
 				.anyRequest().permitAll()
 				.and()

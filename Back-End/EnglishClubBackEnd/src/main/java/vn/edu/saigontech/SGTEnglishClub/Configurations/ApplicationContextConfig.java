@@ -1,5 +1,6 @@
 package vn.edu.saigontech.SGTEnglishClub.Configurations;
 
+import java.util.Arrays;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
@@ -14,8 +15,14 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import vn.edu.saigontech.SGTEnglishClub.DAOs.AdminDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.adminDAO;
+
+
 
 @Configuration
 @ComponentScan("vn.edu.saigontech.SGTEnglishClub.*")
@@ -64,10 +71,32 @@ public class ApplicationContextConfig {
 
 		return transactionManager;
 	}
-	
+
 	@Bean(name = "adminDAO")
-	public AdminDAO getAdminDAO() {
-		return new AdminDAO();
+	public adminDAO getAdminDAO() {
+		return new adminDAO();
+	}
+
+	@Bean(name = "corsConfigurationSource")
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "DELETE", "PUT"));
+		configuration.setAllowedHeaders(Arrays.asList("x-atlassian-token", "charset", "authorization", "Content-Type",
+				"content-type", "x-requested-with", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers",
+				"x-auth-token", "x-app-id", "Origin", "Accept", "X-Requested-With", "Access-Control-Request-Method",
+				"Access-Control-Request-Headers"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
+
+	@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setDefaultEncoding("utf-8");
+		multipartResolver.setMaxUploadSize(10000000);
+		return multipartResolver;
 	}
 
 }
