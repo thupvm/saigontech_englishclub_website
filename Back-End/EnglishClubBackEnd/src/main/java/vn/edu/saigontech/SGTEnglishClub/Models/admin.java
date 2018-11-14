@@ -1,219 +1,199 @@
 package vn.edu.saigontech.SGTEnglishClub.Models;
 
-import java.util.Date;
-import java.util.List;
 
+
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "admin")
-public class admin {
+@Table(name="admin"
+    ,catalog="sgt_englishclub"
+)
+public class Admin  implements java.io.Serializable {
+
+
+     private Integer id;
+     private String username;
+     private String password;
+     private String lastname;
+     private String firstname;
+     private String role;
+     private String phone;
+     private String email;
+     private boolean status;
+     private Set<Tip> tips = new HashSet<Tip>(0);
+     private Set<Video> videos = new HashSet<Video>(0);
+     private Set<Material> materials = new HashSet<Material>(0);
+     private Set<News> newses = new HashSet<News>(0);
+
+    public Admin() {
+    }
+
 	
-	@Id
-	@Column(unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
-	@Column(nullable = false, unique = true, length = 50)
-	private String userName;
-	
-	@Column(nullable = false, length = 50)
-	private String password;
-	
-	@Column(nullable = false, length = 50)
-	private String firstName;
-	
-	@Column(nullable = false, length = 50)
-	private String lastName;
-	
-	private String email;
-	
-	@Column(nullable = false, unique = true, length = 50)
-	private String phoneNumber;
-	
-	@Column(nullable=false, length=11)
-	private String role;
-	
-	@Column
-	private boolean status;
-	
-	@OneToMany(mappedBy="admin")
-	private List<ematerials> ematerials;
-	
-	@OneToMany(mappedBy="admin")
-	private List<video> video;
-	
-	@OneToMany(mappedBy="admin")
-	private List<news> news;
-	
-	@OneToMany(mappedBy="admin")
-	private List<tips> tips;
-	
-	public admin() {
-		super();
-	}
+    public Admin(String username, String password, String lastname, String firstname, String role, String phone, String email, boolean status) {
+        this.username = username;
+        this.password = password;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.role = role;
+        this.phone = phone;
+        this.email = email;
+        this.status = status;
+    }
+    public Admin(String username, String password, String lastname, String firstname, String role, String phone, String email, boolean status, Set<Tip> tips, Set<Video> videos, Set<Material> materials, Set<News> newses) {
+       this.username = username;
+       this.password = password;
+       this.lastname = lastname;
+       this.firstname = firstname;
+       this.role = role;
+       this.phone = phone;
+       this.email = email;
+       this.status = status;
+       this.tips = tips;
+       this.videos = videos;
+       this.materials = materials;
+       this.newses = newses;
+    }
+   
+     @Id @GeneratedValue(strategy=IDENTITY)
 
-	public admin(String userName, String password, String firstName, String lastName, String email, String phoneNumber,
-			String role, boolean status,
-			List<vn.edu.saigontech.SGTEnglishClub.Models.ematerials> ematerials,
-			List<vn.edu.saigontech.SGTEnglishClub.Models.video> video,
-			List<vn.edu.saigontech.SGTEnglishClub.Models.news> news,
-			List<vn.edu.saigontech.SGTEnglishClub.Models.tips> tips) {
-		super();
-		this.userName = userName;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.role = role;
-		this.status = status;
-		this.ematerials = ematerials;
-		this.video = video;
-		this.news = news;
-		this.tips = tips;
-	}
+    
+    @Column(name="ID", unique=true, nullable=false)
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public admin(int id, String userName, String password, String firstName, String lastName, String email,
-			String phoneNumber, String role, boolean status,
-			List<vn.edu.saigontech.SGTEnglishClub.Models.ematerials> ematerials,
-			List<vn.edu.saigontech.SGTEnglishClub.Models.video> video,
-			List<vn.edu.saigontech.SGTEnglishClub.Models.news> news,
-			List<vn.edu.saigontech.SGTEnglishClub.Models.tips> tips) {
-		super();
-		this.id = id;
-		this.userName = userName;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.role = role;
-		this.status = status;
-		this.ematerials = ematerials;
-		this.video = video;
-		this.news = news;
-		this.tips = tips;
-	}
+    
+    @Column(name="USERNAME", nullable=false, length=50)
+    public String getUsername() {
+        return this.username;
+    }
+    
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public int getId() {
-		return id;
-	}
+    
+    @Column(name="PASSWORD", nullable=false, length=50)
+    public String getPassword() {
+        return this.password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    
+    @Column(name="LASTNAME", nullable=false, length=100)
+    public String getLastname() {
+        return this.lastname;
+    }
+    
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    
+    @Column(name="FIRSTNAME", nullable=false, length=100)
+    public String getFirstname() {
+        return this.firstname;
+    }
+    
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    
+    @Column(name="ROLE", nullable=false, length=10)
+    public String getRole() {
+        return this.role;
+    }
+    
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    
+    @Column(name="PHONE", nullable=false, length=15)
+    public String getPhone() {
+        return this.phone;
+    }
+    
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    
+    @Column(name="EMAIL", nullable=false, length=100)
+    public String getEmail() {
+        return this.email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    
+    @Column(name="STATUS", nullable=false)
+    public boolean isStatus() {
+        return this.status;
+    }
+    
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+@OneToMany(fetch=FetchType.LAZY, mappedBy="admin")
+    public Set<Tip> getTips() {
+        return this.tips;
+    }
+    
+    public void setTips(Set<Tip> tips) {
+        this.tips = tips;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+@OneToMany(fetch=FetchType.LAZY, mappedBy="admin")
+    public Set<Video> getVideos() {
+        return this.videos;
+    }
+    
+    public void setVideos(Set<Video> videos) {
+        this.videos = videos;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+@OneToMany(fetch=FetchType.LAZY, mappedBy="admin")
+    public Set<Material> getMaterials() {
+        return this.materials;
+    }
+    
+    public void setMaterials(Set<Material> materials) {
+        this.materials = materials;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+@OneToMany(fetch=FetchType.LAZY, mappedBy="admin")
+    public Set<News> getNewses() {
+        return this.newses;
+    }
+    
+    public void setNewses(Set<News> newses) {
+        this.newses = newses;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
-	public List<ematerials> getEmaterials() {
-		return ematerials;
-	}
-
-	public void setEmaterials(List<ematerials> ematerials) {
-		this.ematerials = ematerials;
-	}
-
-	public List<video> getVideo() {
-		return video;
-	}
-
-	public void setVideo(List<video> video) {
-		this.video = video;
-	}
-
-	public List<news> getNews() {
-		return news;
-	}
-
-	public void setNews(List<news> news) {
-		this.news = news;
-	}
-
-	public List<tips> getTips() {
-		return tips;
-	}
-
-	public void setTips(List<tips> tips) {
-		this.tips = tips;
-	}
-
-	@Override
-	public String toString() {
-		return "admin [id=" + id + ", userName=" + userName + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", role=" + role
-				+ ", status=" + status + ", ematerials=" + ematerials + ", video=" + video + ", news=" + news
-				+ ", tips=" + tips + "]";
-	}
-	
-	
 
 }
+
+

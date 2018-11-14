@@ -20,7 +20,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import vn.edu.saigontech.SGTEnglishClub.DAOs.adminDAO;
+//import vn.edu.saigontech.SGTEnglishClub.DAOs.adminDAO;
 
 
 
@@ -72,10 +72,10 @@ public class ApplicationContextConfig {
 		return transactionManager;
 	}
 
-	@Bean(name = "adminDAO")
-	public adminDAO getAdminDAO() {
-		return new adminDAO();
-	}
+//	@Bean(name = "adminDAO")
+//	public adminDAO getAdminDAO() {
+//		return new adminDAO();
+//	}
 
 	@Bean(name = "corsConfigurationSource")
 	public CorsConfigurationSource corsConfigurationSource() {

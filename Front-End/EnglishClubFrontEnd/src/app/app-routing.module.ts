@@ -1,19 +1,21 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { LoginComponent } from './login/login.component'
-import { AdminHomeComponent } from './admin-home/admin-home.component'
-import { ClientHomeComponent } from './client-home/client-home.component';
+import { LoginComponent } from './login/login.component';
+import { AdminNavBarComponent } from './admin-nav-bar/admin-nav-bar.component';
+import { ClientNavBarComponent } from './client-nav-bar/client-nav-bar.component';
 import { ClientVideoComponent } from './client-video/client-video.component';
- 
 const routes: Routes = [
+  
   { 
-    path: 'manage/login', 
-    component: LoginComponent 
+    path: 'admin/login', 
+    component: LoginComponent
   },
-  { 
-    path: 'client', 
-    component: ClientHomeComponent, 
+  { path: 'manage', 
+    component: AdminNavBarComponent
+    
+  },
+  { path: 'client', 
+    component: ClientNavBarComponent,
     children:[
       {
         path: 'video',
@@ -22,9 +24,9 @@ const routes: Routes = [
     ]
   }
 ];
- 
+
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
