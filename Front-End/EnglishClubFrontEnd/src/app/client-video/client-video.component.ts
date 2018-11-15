@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 declare var $: any;
 
 @Component({
@@ -11,19 +11,7 @@ export class ClientVideoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    $("#videoTAB").attr('class','bg-light');
-    
-    $("#hihi").fancybox({
-      maxWidth    : 800,
-      maxHeight   : 600,
-      fitToView   : false,
-      width       : '70%',
-      height      : '70%',
-      autoSize    : false,
-      closeClick  : false,
-      openEffect  : 'none',
-      closeEffect : 'none'
-    });
+    $("#ComponentTitle").text("Videos");
   }
 
 }

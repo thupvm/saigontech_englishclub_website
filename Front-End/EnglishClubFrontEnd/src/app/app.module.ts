@@ -12,6 +12,9 @@ import { ClientNavBarComponent } from './client-nav-bar/client-nav-bar.component
 import { ClientHomeComponent } from './client-home/client-home.component';
 import { ClientVideoComponent } from './client-video/client-video.component';
 import { CookieService } from 'ngx-cookie-service';
+import { ClientEMaterialComponent } from './client-e-material/client-e-material.component';
+import { ClientTipComponent } from './client-tip/client-tip.component';
+import { ClientNewsComponent } from './client-news/client-news.component';
 
 
 
@@ -23,7 +26,10 @@ import { CookieService } from 'ngx-cookie-service';
     AdminNavBarComponent,
     ClientNavBarComponent,
     ClientHomeComponent,
-    ClientVideoComponent
+    ClientVideoComponent,
+    ClientEMaterialComponent,
+    ClientTipComponent,
+    ClientNewsComponent
   ],
   imports: [
     BrowserModule,
