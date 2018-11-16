@@ -22,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import vn.edu.saigontech.SGTEnglishClub.DAOs.adminDAO;
 import vn.edu.saigontech.SGTEnglishClub.DAOs.videoDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.videoTypeDAO;
 
 //import vn.edu.saigontech.SGTEnglishClub.DAOs.adminDAO;
 
@@ -104,6 +105,10 @@ public class ApplicationContextConfig {
 	@Bean(name = "videoDAO")
 	public videoDAO	getVideoDAO() {
 		return new videoDAO();
+	}
+	@Bean(name = "videoTypeDAO")
+	public videoTypeDAO	getVideoTypeDAO() {
+		return new videoTypeDAO();
 	}
 
 }
