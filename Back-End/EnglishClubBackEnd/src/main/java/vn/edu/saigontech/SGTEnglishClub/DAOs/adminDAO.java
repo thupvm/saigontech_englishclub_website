@@ -19,7 +19,6 @@ public class adminDAO {
 	private SessionFactory sessionFactory;
 
 	public CustomResponseEntity login(String username, String password) {
-		CustomResponseEntity res = new CustomResponseEntity();
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			Query<?> qry = session.createQuery("from Admin a where a.username = :uname and a.password = :pword")
@@ -38,6 +37,63 @@ public class adminDAO {
 			return CustomResponseEntity.getWrongUsernamePassword();
 		}
 
+	}
+
+	public CustomResponseEntity getAllAdmin() {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query<?> qry = session.createQuery("from Admin");
+			List<Admin> adminArr = (List<Admin>) qry.list();
+			return CustomResponseEntity.getOKResponse("This is the list of admin", adminArr);
+		} catch (Exception e) {
+			return CustomResponseEntity.getDatabaseErrorResponse();
+		}
+	}
+
+	public CustomResponseEntity getAdminByID(int id) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query<?> qry = session.createQuery("from Admin a where a.id = :id").setParameter("id", id);
+			List<Admin> adminArr = (List<Admin>) qry.list();
+			return CustomResponseEntity.getOKResponse("This is the admin with id equal " + id, adminArr.get(0));
+		} catch (Exception e) {
+			return CustomResponseEntity.getDatabaseErrorResponse();
+		}
+	}
+
+	public CustomResponseEntity addAdmin(Admin newAdmin) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			session.persist(newAdmin);
+			return CustomResponseEntity.getOKResponse("Adding this admin successfully", newAdmin);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return CustomResponseEntity.getDatabaseErrorResponse();
+		}
+	}
+
+	public CustomResponseEntity deleteAdmin(int id) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Admin targetAdmin = (Admin) getAdminByID(id).getData();
+			if (targetAdmin != null) {
+				session.delete(targetAdmin);
+				return CustomResponseEntity.getOKResponse("Delete this admin successfully", targetAdmin);
+			} else
+				return CustomResponseEntity.getDatabaseErrorResponse();
+		} catch (Exception e) {
+			return CustomResponseEntity.getDatabaseErrorResponse();
+		}
+	}
+	
+	public CustomResponseEntity updateAdmin(Admin newAdmin) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			session.merge(newAdmin);
+			return CustomResponseEntity.getOKResponse("Update this admin successfully", newAdmin);
+		} catch (Exception e) {
+			return CustomResponseEntity.getDatabaseErrorResponse();
+		}
 	}
 
 }

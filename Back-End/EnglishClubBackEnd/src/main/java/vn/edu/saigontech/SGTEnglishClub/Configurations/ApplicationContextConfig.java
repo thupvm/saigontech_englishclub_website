@@ -21,6 +21,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import vn.edu.saigontech.SGTEnglishClub.DAOs.adminDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.videoDAO;
 
 //import vn.edu.saigontech.SGTEnglishClub.DAOs.adminDAO;
 
@@ -73,12 +74,6 @@ public class ApplicationContextConfig {
 
 		return transactionManager;
 	}
-
-	@Bean(name = "adminDAO")
-	public adminDAO getAdminDAO() {
-		return new adminDAO();
-	}
-
 	@Bean(name = "corsConfigurationSource")
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
@@ -99,6 +94,16 @@ public class ApplicationContextConfig {
 		multipartResolver.setDefaultEncoding("utf-8");
 		multipartResolver.setMaxUploadSize(10000000);
 		return multipartResolver;
+	}
+	
+	@Bean(name = "adminDAO")
+	public adminDAO getAdminDAO() {
+		return new adminDAO();
+	}
+	
+	@Bean(name = "videoDAO")
+	public videoDAO	getVideoDAO() {
+		return new videoDAO();
 	}
 
 }

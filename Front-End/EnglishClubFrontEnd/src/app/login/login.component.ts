@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ConnectionService } from '../connection.service';
@@ -10,13 +10,12 @@ var self: any;
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [CookieService, ConnectionService],
-  encapsulation: ViewEncapsulation.None
+  providers: [CookieService, ConnectionService]
 })
 export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private connection: ConnectionService, private cookie: CookieService) {
-
+    
   }
 
   ngOnInit() {
