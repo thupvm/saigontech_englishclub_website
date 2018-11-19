@@ -17,9 +17,7 @@ import javax.persistence.Table;
     ,catalog="sgt_englishclub"
 )
 public class File  implements java.io.Serializable {
-
-
-     private Integer id;
+	 private Integer id;
      private Material material;
      private String name;
      private boolean status;
@@ -45,7 +43,7 @@ public class File  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="MATERIALID", nullable=false)
     public Material getMaterial() {
         return this.material;

@@ -1,9 +1,5 @@
 package vn.edu.saigontech.SGTEnglishClub.Models.nonMapping;
 
-import java.util.Date;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import vn.edu.saigontech.SGTEnglishClub.Utils.CustomJsonDateDeserializer;
-
 public class VideoNonMapping {
 	private Integer id;
 	private Integer adminID;

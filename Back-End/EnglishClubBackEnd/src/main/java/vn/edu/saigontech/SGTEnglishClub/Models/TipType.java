@@ -12,11 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="tiptype"
     ,catalog="sgt_englishclub"
 )
-public class Tiptype  implements java.io.Serializable {
+public class TipType  implements java.io.Serializable {
 
 
      private Integer id;
@@ -24,15 +26,15 @@ public class Tiptype  implements java.io.Serializable {
      private boolean status;
      private Set<Tip> tips = new HashSet<Tip>(0);
 
-    public Tiptype() {
+    public TipType() {
     }
 
 	
-    public Tiptype(String name, boolean status) {
+    public TipType(String name, boolean status) {
         this.name = name;
         this.status = status;
     }
-    public Tiptype(String name, boolean status, Set<Tip> tips) {
+    public TipType(String name, boolean status, Set<Tip> tips) {
        this.name = name;
        this.status = status;
        this.tips = tips;
@@ -69,7 +71,7 @@ public class Tiptype  implements java.io.Serializable {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
+@JsonIgnore
 @OneToMany(fetch=FetchType.LAZY, mappedBy="tiptype")
     public Set<Tip> getTips() {
         return this.tips;

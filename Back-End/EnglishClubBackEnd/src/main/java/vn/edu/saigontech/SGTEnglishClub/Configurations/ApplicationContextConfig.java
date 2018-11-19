@@ -20,9 +20,17 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import vn.edu.saigontech.SGTEnglishClub.DAOs.adminDAO;
-import vn.edu.saigontech.SGTEnglishClub.DAOs.videoDAO;
-import vn.edu.saigontech.SGTEnglishClub.DAOs.videoTypeDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.AdminDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.FileDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.MaterialDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.MaterialTypeDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.NewsDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.NewsTypeDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.TipDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.TipTypeDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.VideoDAO;
+import vn.edu.saigontech.SGTEnglishClub.DAOs.VideoTypeDAO;
+
 
 //import vn.edu.saigontech.SGTEnglishClub.DAOs.adminDAO;
 
@@ -98,17 +106,50 @@ public class ApplicationContextConfig {
 	}
 	
 	@Bean(name = "adminDAO")
-	public adminDAO getAdminDAO() {
-		return new adminDAO();
+	public AdminDAO getAdminDAO() {
+		return new AdminDAO();
 	}
 	
 	@Bean(name = "videoDAO")
-	public videoDAO	getVideoDAO() {
-		return new videoDAO();
+	public VideoDAO	getVideoDAO() {
+		return new VideoDAO();
 	}
 	@Bean(name = "videoTypeDAO")
-	public videoTypeDAO	getVideoTypeDAO() {
-		return new videoTypeDAO();
+	public VideoTypeDAO	getVideoTypeDAO() {
+		return new VideoTypeDAO();
+	}
+	
+	@Bean(name="eMaDAO")
+	public MaterialDAO getMaterialDAO() {
+		return new MaterialDAO();
+	}
+	@Bean(name="eMTypeDAO")
+	public MaterialTypeDAO getMaterialTypeDAO() {
+		return new MaterialTypeDAO();
+	}
+	
+	@Bean(name = "fileDao")
+	public FileDAO getFileDAO() {
+		return new FileDAO();
+	}
+	
+	@Bean(name="newsDAO")
+	public NewsDAO getNewsDAO() {
+		return new NewsDAO();
+	}
+	@Bean(name="newsTypeDAO")
+	public NewsTypeDAO getNewsTypeDAO() {
+		return new NewsTypeDAO();
+	}
+	
+	
+	@Bean(name="tipDAO")
+	public TipDAO getTipDAO() {
+		return new TipDAO();
+	}
+	@Bean(name="tipTypeDao")
+	public TipTypeDAO getTipTypeDao() {
+		return new TipTypeDAO();
 	}
 
 }

@@ -15,14 +15,18 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import vn.edu.saigontech.SGTEnglishClub.Utils.CustomDateSerializer;
+
 @Entity
 @Table(name="news"
     ,catalog="sgt_englishclub"
 )
-public class News  implements java.io.Serializable {
-
-
-     private Integer id;
+public class News  implements java.                                                          io.Serializable {
+                                            
+                         
+     private Integer id;                   
      private Admin admin;
      private Newstype newstype;
      private String title;
@@ -67,7 +71,7 @@ public class News  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="ADMINID", nullable=false)
     public Admin getAdmin() {
         return this.admin;
@@ -77,7 +81,7 @@ public class News  implements java.io.Serializable {
         this.admin = admin;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="NEWSTYPEID", nullable=false)
     public Newstype getNewstype() {
         return this.newstype;
@@ -129,6 +133,7 @@ public class News  implements java.io.Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name="POSTDATE", length=0)
+    @JsonSerialize(using = CustomDateSerializer.class)
     public Date getPostdate() {
         return this.postdate;
     }

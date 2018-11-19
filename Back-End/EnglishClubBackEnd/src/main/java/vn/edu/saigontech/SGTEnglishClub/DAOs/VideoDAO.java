@@ -11,7 +11,7 @@ import vn.edu.saigontech.SGTEnglishClub.Models.Video;
 import vn.edu.saigontech.SGTEnglishClub.Responses.CustomResponseEntity;
 
 @Transactional
-public class videoDAO {
+public class VideoDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	

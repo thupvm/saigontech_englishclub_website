@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll()
 				.antMatchers(HttpMethod.POST, "/manage/login").permitAll()
-				.antMatchers("/manage/**").authenticated()
+//				.antMatchers("/manage/**").authenticated()
 				.anyRequest().permitAll().and().exceptionHandling()
 				.authenticationEntryPoint(new AccessDeniedEntryPoint()).and()
 				.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),

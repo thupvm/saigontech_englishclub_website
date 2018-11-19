@@ -48,7 +48,7 @@ public class CustomResponseEntity {
 	}
 	
 	public static CustomResponseEntity getExpiredTimeResponse() {
-		CustomResponseEntity res = new CustomResponseEntity(3, "Log-in timeout", null);
+		CustomResponseEntity res = new CustomResponseEntity(6, "Log-in timeout", null);
 		return res;
 	}
 	

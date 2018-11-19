@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="materialtype"
@@ -70,7 +72,7 @@ public class Materialtype  implements java.io.Serializable {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
+    @JsonIgnore
 @OneToMany(fetch=FetchType.LAZY, mappedBy="materialtype")
     public Set<Material> getMaterials() {
         return this.materials;

@@ -14,7 +14,7 @@ import vn.edu.saigontech.SGTEnglishClub.Responses.LoginResponse;
 import java.util.List;
 
 @Transactional
-public class adminDAO {
+public class AdminDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 

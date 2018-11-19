@@ -14,16 +14,18 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import vn.edu.saigontech.SGTEnglishClub.Utils.CustomDateSerializer;
+
 @Entity
 @Table(name="tip"
     ,catalog="sgt_englishclub"
 )
 public class Tip  implements java.io.Serializable {
-
-
      private Integer id;
      private Admin admin;
-     private Tiptype tiptype;
+     private TipType tiptype;
      private String title;
      private String titlepicture;
      private String content;
@@ -34,7 +36,7 @@ public class Tip  implements java.io.Serializable {
     }
 
 	
-    public Tip(Admin admin, Tiptype tiptype, String title, String titlepicture, String content, boolean status) {
+    public Tip(Admin admin, TipType tiptype, String title, String titlepicture, String content, boolean status) {
         this.admin = admin;
         this.tiptype = tiptype;
         this.title = title;
@@ -42,7 +44,7 @@ public class Tip  implements java.io.Serializable {
         this.content = content;
         this.status = status;
     }
-    public Tip(Admin admin, Tiptype tiptype, String title, String titlepicture, String content, Date postdate, boolean status) {
+    public Tip(Admin admin, TipType tiptype, String title, String titlepicture, String content, Date postdate, boolean status) {
        this.admin = admin;
        this.tiptype = tiptype;
        this.title = title;
@@ -64,7 +66,7 @@ public class Tip  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="ADMINID", nullable=false)
     public Admin getAdmin() {
         return this.admin;
@@ -74,13 +76,13 @@ public class Tip  implements java.io.Serializable {
         this.admin = admin;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="TIPTYPEID", nullable=false)
-    public Tiptype getTiptype() {
+    public TipType getTiptype() {
         return this.tiptype;
     }
     
-    public void setTiptype(Tiptype tiptype) {
+    public void setTiptype(TipType tiptype) {
         this.tiptype = tiptype;
     }
 
@@ -116,6 +118,7 @@ public class Tip  implements java.io.Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name="POSTDATE", length=0)
+    @JsonSerialize(using = CustomDateSerializer.class)
     public Date getPostdate() {
         return this.postdate;
     }
