@@ -29,22 +29,22 @@ public class TipRESTController {
 	@Autowired
 	private TipDAO tipDAO;
 
-	@RequestMapping(value = "/TipREST", method = RequestMethod.GET)
+	@RequestMapping(value = "/tip", method = RequestMethod.GET)
 	public CustomResponseEntity getAllTips() {
 		return tipDAO.getAllTip();
 	}
 
-	@RequestMapping(value = "/TipREST/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/tip/{id}", method = RequestMethod.GET)
 	public CustomResponseEntity getTipById(@PathVariable int id) {
 		return tipDAO.getTipByID(id);
 	}
 
-	@RequestMapping(value = "/TipRESTByTitle/{newsStr}", method = RequestMethod.GET)
+	@RequestMapping(value = "/tip/title/{newsStr}", method = RequestMethod.GET)
 	public CustomResponseEntity getTipByTitle(@PathVariable String newsStr) {
 		return tipDAO.getTipByTitle(newsStr);
 	}
 
-	@RequestMapping(value = "/TipREST", method = RequestMethod.POST)
+	@RequestMapping(value = "/manage/tip", method = RequestMethod.POST)
 	public CustomResponseEntity addTip(@RequestBody TipNonMapping newTip) {
 		try {
 			Tip tipHibernate = new Tip();
@@ -61,13 +61,13 @@ public class TipRESTController {
 		}
 	}
 
-	@RequestMapping(value = "/TipREST/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/manage/tip/{id}", method = RequestMethod.DELETE)
 	public CustomResponseEntity deleteTip(@PathVariable int id) {
 		return tipDAO.deleteTip(id);
 
 	}
 
-	@RequestMapping(value = "/TipREST", method = RequestMethod.PUT)
+	@RequestMapping(value = "/manage/tip", method = RequestMethod.PUT)
 	public CustomResponseEntity updateTip(@RequestBody TipNonMapping updateTip) {
 		try {
 			Tip tipHibernate = new Tip();

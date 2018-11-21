@@ -31,22 +31,22 @@ public class NewsRESTController {
 	@Autowired
 	private NewsDAO newsDAO;
 	
-	@RequestMapping(value = "/NewsREST", method = RequestMethod.GET)
+	@RequestMapping(value = "/news", method = RequestMethod.GET)
 	public CustomResponseEntity getAllNews() {
 		return newsDAO.getAllNews();
 	}
 	
-	@RequestMapping(value = "/NewsREST/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/news/{id}", method = RequestMethod.GET)
 	public CustomResponseEntity getNewsByID(@PathVariable int id) {
 		return newsDAO.getNewsByID(id);
 	}
 	
-	@RequestMapping(value = "/NewsRESTByTitle/{newsStr}", method = RequestMethod.GET)
+	@RequestMapping(value = "/news/title/{newsStr}", method = RequestMethod.GET)
 	public CustomResponseEntity getNewsByTitle(@PathVariable String newsStr) {
 		return newsDAO.getNewsByTitle(newsStr);
 	}
 	
-	@RequestMapping(value = "/NewsREST", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/manage/news", method = RequestMethod.POST, consumes = "application/json")
 	public CustomResponseEntity addNews(@RequestBody NewsNonMapping newsAdd){
 		
 		try {
@@ -69,13 +69,13 @@ public class NewsRESTController {
 	}
 	
 	
-	@RequestMapping(value = "/NewsREST/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/manage/news/{id}", method = RequestMethod.DELETE)
 	public CustomResponseEntity deleteNews(@PathVariable int id){
 		return newsDAO.deleteNews(id);
 		
 	}
 	
-	@RequestMapping(value = "/NewsREST", method = RequestMethod.PUT, consumes = "application/json")
+	@RequestMapping(value = "/manage/news", method = RequestMethod.PUT, consumes = "application/json")
 	public CustomResponseEntity updateNews(@RequestBody NewsNonMapping updateNews){
 		try {
 			News newsHibernate = new News();
@@ -97,7 +97,7 @@ public class NewsRESTController {
 		}
 	}
 	
-	@RequestMapping(value="/searchNews/{someString}", method = RequestMethod.GET)
+	@RequestMapping(value="/manage/news/searchNews/{someString}", method = RequestMethod.GET)
 	public CustomResponseEntity searchNews(@PathVariable String someString) {
 		return newsDAO.searchNews(someString);
 	}

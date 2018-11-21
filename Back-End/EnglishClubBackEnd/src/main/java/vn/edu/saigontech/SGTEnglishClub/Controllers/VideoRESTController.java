@@ -34,17 +34,17 @@ public class VideoRESTController {
 	@Autowired
 	private VideoTypeDAO videoTypeDAO;
 
-	@RequestMapping(value = "/Video", method = RequestMethod.GET)
+	@RequestMapping(value = "/video", method = RequestMethod.GET)
 	public CustomResponseEntity getAllVideo() {
 		return videoDAO.getAllVideo();
 	}
 
-	@RequestMapping(value = "/Video/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/video/{id}", method = RequestMethod.GET)
 	public CustomResponseEntity getVideoByID(@PathVariable("id") int id) {
 		return videoDAO.getVideoByID(id);
 	}
 
-	@RequestMapping(value = "/Video", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/manage/video", method = RequestMethod.POST, consumes = "application/json")
 	public CustomResponseEntity addVideo(@RequestBody VideoNonMapping newVideo) {
 		try {
 			Video newVideoHibernate = new Video();
@@ -64,12 +64,12 @@ public class VideoRESTController {
 		}
 	}
 
-	@RequestMapping(value = "/Video/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/manage/video/{id}", method = RequestMethod.DELETE)
 	public CustomResponseEntity deleteVideo(@PathVariable("id") int id) {
 		return videoDAO.deleteVideo(id);
 	}
 
-	@RequestMapping(value = "/Video", method = RequestMethod.PUT, consumes = "application/json")
+	@RequestMapping(value = "/manage/video", method = RequestMethod.PUT, consumes = "application/json")
 	public CustomResponseEntity updateVideo(@RequestBody VideoNonMapping updateVideo) {
 		try {
 			Video newVideoHibernate = new Video();

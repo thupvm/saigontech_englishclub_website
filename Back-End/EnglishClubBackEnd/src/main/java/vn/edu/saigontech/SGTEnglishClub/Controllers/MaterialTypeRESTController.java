@@ -19,27 +19,27 @@ public class MaterialTypeRESTController {
 	@Autowired
 	private MaterialTypeDAO eMTypeDAO;
 	
-	@RequestMapping(value = "/MaterialTypeREST", method = RequestMethod.GET)
+	@RequestMapping(value = "/materialType", method = RequestMethod.GET)
 	public CustomResponseEntity getAllMaterialTypes() {
 		return eMTypeDAO.getAllMaterialtype();
 	}
 	
-	@RequestMapping(value = "/MaterialTypeREST/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/materialType/{id}", method = RequestMethod.GET)
 	public CustomResponseEntity getMaterialTypeByID(@PathVariable int id) {
 		return eMTypeDAO.getMaterialtypeByID(id);
 	}
 	
-	@RequestMapping(value = "/MaterialTypeREST", method = RequestMethod.POST)
+	@RequestMapping(value = "/mamage/materialType", method = RequestMethod.POST)
 	public CustomResponseEntity addEMaterialType(@RequestBody Materialtype newEMType) {
 		return eMTypeDAO.addMaterialType(newEMType);
 	}
 	
-	@RequestMapping(value = "/MaterialTypeREST/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/manage/materialType/{id}", method = RequestMethod.DELETE)
 	public CustomResponseEntity deleteEMaterialType(@PathVariable int id) {
 		return eMTypeDAO.deleteMaterialType(id);
 	}
 	
-	@RequestMapping(value = "/MaterialTypeREST", method = RequestMethod.PUT)
+	@RequestMapping(value = "/manage/materialType", method = RequestMethod.PUT)
 	public CustomResponseEntity updateEMaterialType(@RequestBody Materialtype updateEMType) {
 		return eMTypeDAO.updateMaterialType(updateEMType);
 	}

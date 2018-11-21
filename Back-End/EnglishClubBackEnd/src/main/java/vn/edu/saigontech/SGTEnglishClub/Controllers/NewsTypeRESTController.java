@@ -17,27 +17,27 @@ public class NewsTypeRESTController {
 	@Autowired
 	private NewsTypeDAO newsTypeDAO;
 	
-	@RequestMapping(value = "/NewsTypeREST", method = RequestMethod.GET)
+	@RequestMapping(value = "/newsType", method = RequestMethod.GET)
 	public CustomResponseEntity getAllNewsTypes() {
 		return newsTypeDAO.getAllNewsType();
 	}
 	
-	@RequestMapping(value = "/NewsTypeREST/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/newsType/{id}", method = RequestMethod.GET)
 	public CustomResponseEntity getNewsTypeByID(@PathVariable int id) {
 		return newsTypeDAO.getNewsTypeByID(id);
 	}
 	
-	@RequestMapping(value = "/NewsTypeREST", method = RequestMethod.POST)
+	@RequestMapping(value = "/manage/newsType", method = RequestMethod.POST)
 	public CustomResponseEntity addNewsType(@RequestBody Newstype newNType) {
 		return newsTypeDAO.addNewsType(newNType);
 	}
 	
-	@RequestMapping(value = "/NewsTypeREST/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/manage/newsType/{id}", method = RequestMethod.DELETE)
 	public CustomResponseEntity deleteNewsType(@PathVariable int id) {
 		return newsTypeDAO.deleteNewsType(id);
 	}
 	
-	@RequestMapping(value = "/NewsTypeREST", method = RequestMethod.PUT)
+	@RequestMapping(value = "/manage/newsType", method = RequestMethod.PUT)
 	public CustomResponseEntity updateNewsType(@RequestBody Newstype updateNType) {
 		return newsTypeDAO.updateNewsType(updateNType);
 	}

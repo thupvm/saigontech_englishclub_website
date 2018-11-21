@@ -16,28 +16,28 @@ public class VideoTypeRESTController {
 	@Autowired
 	private VideoTypeDAO videoTypeDao;
 	
-	@RequestMapping(value="/VideoTypeREST", method=RequestMethod.GET)
+	@RequestMapping(value="/videoType", method=RequestMethod.GET)
 	public CustomResponseEntity getAllVideoTypes() {
 		return videoTypeDao.getAllVideoType();
 	}
 	
-	@RequestMapping(value="/VideoTypeREST/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/videoType/{id}", method=RequestMethod.GET)
 	public CustomResponseEntity getVideoTypeById(@PathVariable int id) {
 		return videoTypeDao.getVideoTypeByID(id);
 	}
 	
 
-	@RequestMapping(value="/VideoTypeREST", method=RequestMethod.POST)
+	@RequestMapping(value="/manage/videoType", method=RequestMethod.POST)
 	public CustomResponseEntity addVideoType(@RequestBody Videotype newVType) {
 		return videoTypeDao.addVideoType(newVType);
 	}
 	
-	@RequestMapping(value="/VideoTypeREST/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/manage/videoType/{id}", method=RequestMethod.DELETE)
 	public CustomResponseEntity deleteVideoType(@PathVariable int id) {
 		return videoTypeDao.deleteVideoType(id);
 	}
 	
-	@RequestMapping(value="/VideoTypeREST", method=RequestMethod.PUT)
+	@RequestMapping(value="/manage/videoType", method=RequestMethod.PUT)
 	public CustomResponseEntity updateVideoType(@RequestBody Videotype updateVideoType) {
 		return videoTypeDao.updateVideoType(updateVideoType);
 	}

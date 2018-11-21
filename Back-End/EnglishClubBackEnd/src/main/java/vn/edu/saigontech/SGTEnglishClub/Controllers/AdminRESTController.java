@@ -14,7 +14,7 @@ import vn.edu.saigontech.SGTEnglishClub.Responses.CustomResponseEntity;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/manage")
+
 public class AdminRESTController {
 	@Autowired
 	private AdminDAO adminDAO;
@@ -29,17 +29,17 @@ public class AdminRESTController {
 		return adminDAO.getAdminByID(id);
 	}
 	
-	@RequestMapping(value = "/admin", method = RequestMethod.POST)
+	@RequestMapping(value = "/manage/admin", method = RequestMethod.POST)
 	public CustomResponseEntity addAdmin(@RequestBody Admin newAdmin) {
 		return adminDAO.addAdmin(newAdmin);
 	}
 	
-	@RequestMapping(value = "/admin/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/manage/admin/{id}", method = RequestMethod.DELETE)
 	public CustomResponseEntity deleteAdmin(@PathVariable("id") int id) {
 		return adminDAO.deleteAdmin(id);
 	}
 	
-	@RequestMapping(value = "/admin", method = RequestMethod.PUT)
+	@RequestMapping(value = "/manage/admin", method = RequestMethod.PUT)
 	public CustomResponseEntity updateAdmin(@RequestBody Admin newAdmin) {
 		return adminDAO.updateAdmin(newAdmin);
 	}

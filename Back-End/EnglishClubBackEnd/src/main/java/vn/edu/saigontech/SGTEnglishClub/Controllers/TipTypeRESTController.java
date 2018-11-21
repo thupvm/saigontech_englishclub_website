@@ -18,28 +18,28 @@ public class TipTypeRESTController {
 	@Autowired
 	private TipTypeDAO tipTypeDao;
 	
-	@RequestMapping(value="/TipTypeREST", method=RequestMethod.GET)
+	@RequestMapping(value="/tipType", method=RequestMethod.GET)
 	public CustomResponseEntity getAllTipTypes() {
 		return tipTypeDao.getAllTipsTypes();
 	}
 	
-	@RequestMapping(value="/TipTypeREST/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/tipType/{id}", method=RequestMethod.GET)
 	public CustomResponseEntity getTipTypeById(@PathVariable int id) {
 		return tipTypeDao.getTipTypeByID(id);
 	}          
 	
 
-	@RequestMapping(value="/TipTypeREST", method=RequestMethod.POST)
+	@RequestMapping(value="/manage/tipType", method=RequestMethod.POST)
 	public CustomResponseEntity addTipType(@RequestBody TipType newTType) {
 		return tipTypeDao.addTipType(newTType);
 	}
 	
-	@RequestMapping(value="/TipTypeREST/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/manage/tipType/{id}", method=RequestMethod.DELETE)
 	public CustomResponseEntity deleteTiptype(@PathVariable int id) {
 		return tipTypeDao.deleteTipType(id);
 	}
 	
-	@RequestMapping(value="/TipTypeREST", method=RequestMethod.PUT)
+	@RequestMapping(value="/manage/tipType", method=RequestMethod.PUT)
 	public CustomResponseEntity updateTipType(@RequestBody TipType updateTType) {
 		return tipTypeDao.updateTipType(updateTType);
 	}

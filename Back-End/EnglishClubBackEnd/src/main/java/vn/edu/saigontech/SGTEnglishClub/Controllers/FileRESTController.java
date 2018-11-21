@@ -21,32 +21,32 @@ public class FileRESTController {
 	@Autowired
 	private FileDAO fileDao;
 	
-	@RequestMapping(value = "/FileREST", method = RequestMethod.GET)
+	@RequestMapping(value = "/file", method = RequestMethod.GET)
 	public CustomResponseEntity getAllAdmin() {
 		return fileDao.getAllFile();
 	}
 	
-	@RequestMapping(value = "/FileREST/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
 	public CustomResponseEntity getAdminByID(@PathVariable int id) {
 		return fileDao.getFileByID(id);
 	}
 	
-	@RequestMapping(value = "/FileRESTByFileName/{fileStr}", method = RequestMethod.GET)
+	@RequestMapping(value = "/file/{fileStr}", method = RequestMethod.GET)
 	public CustomResponseEntity getFileByFileName(@PathVariable String fileStr) {
 		return fileDao.getFileByNameFile(fileStr);
 	}
 	
-	@RequestMapping(value="/FileREST", method = RequestMethod.POST)
+	@RequestMapping(value="/manage/file", method = RequestMethod.POST)
 	public CustomResponseEntity addFile(@RequestBody File newFile) {
 		return fileDao.addFile(newFile);
 	}
 	
-	@RequestMapping(value="/FileREST/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/manage/file/{id}", method=RequestMethod.DELETE)
 	public CustomResponseEntity deleteFile(@PathVariable int id) {
 		return fileDao.deleteFile(id);
 	}
 	
-	@RequestMapping(value="FileREST", method=RequestMethod.PUT)
+	@RequestMapping(value="/manage/file", method=RequestMethod.PUT)
 	public CustomResponseEntity updateFile(@RequestBody File updateFile) {
 		return fileDao.updateFile(updateFile);
 	}

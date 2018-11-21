@@ -30,21 +30,26 @@ public class MaterialRESTController {
 	@Autowired
 	private MaterialDAO eMaDAO;
 	
-	@RequestMapping(value = "/MaterialREST", method = RequestMethod.GET)
+	@RequestMapping(value = "/material", method = RequestMethod.GET)
 	public CustomResponseEntity getAllMaterial() {
 		return eMaDAO.getAllMaterial();
 	}
 	
-	@RequestMapping(value = "/MaterialREST/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/material/{id}", method = RequestMethod.GET)
 	public CustomResponseEntity getMaterialByID(@PathVariable int id) {
 		return eMaDAO.getMaterialByID(id);
 	}
 	
-	@RequestMapping(value = "/MaterialRESTByTitle/{eMa}", method = RequestMethod.GET)
+	@RequestMapping(value = "/material/name/{eMa}", method = RequestMethod.GET)
 	public CustomResponseEntity getMaterialByTitle(@PathVariable String eMa) {
 		return eMaDAO.getMaterialByTitle(eMa);
 	}
 	
+<<<<<<< HEAD
+	@RequestMapping(value = "/manage/material", method = RequestMethod.POST)
+	public CustomResponseEntity addMaterial(@RequestBody Material newEMa){
+		return eMaDAO.addMaterial(newEMa);	
+=======
 	@RequestMapping(value = "/MaterialREST", method = RequestMethod.POST)
 	public CustomResponseEntity addMaterial(@RequestBody MaterialsNonMapping newMaterial){
 		try {
@@ -63,14 +68,20 @@ public class MaterialRESTController {
 			return CustomResponseEntity.getDatabaseErrorResponse();
 		}
 		
+>>>>>>> c4b834d7d7df38d62774f1a61e733a1468d0f9d2
 	}
 	
-	@RequestMapping(value = "/MaterialREST/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/manage/material/{id}", method = RequestMethod.DELETE)
 	public CustomResponseEntity deleteMaterial(@PathVariable int id){
 		return eMaDAO.deleteMaterial(id);
 		
 	}
 	
+<<<<<<< HEAD
+	@RequestMapping(value = "/manage/material", method = RequestMethod.PUT)
+	public CustomResponseEntity updateMaterial(@PathVariable Material updateEMa){
+		return eMaDAO.updateMaterial(updateEMa);
+=======
 	@RequestMapping(value = "/MaterialREST", method = RequestMethod.PUT)
 	public CustomResponseEntity updateMaterial(@RequestBody MaterialsNonMapping updateMa){
 		try {
@@ -88,6 +99,7 @@ public class MaterialRESTController {
 			e.printStackTrace();
 			return CustomResponseEntity.getDatabaseErrorResponse();
 		}
+>>>>>>> c4b834d7d7df38d62774f1a61e733a1468d0f9d2
 	}
 
 	

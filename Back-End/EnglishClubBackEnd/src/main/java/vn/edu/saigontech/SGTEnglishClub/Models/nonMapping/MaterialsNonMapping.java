@@ -17,6 +17,8 @@ public class MaterialsNonMapping {
 	private String content;
 	private String postdate;
 	private boolean status;
+<<<<<<< HEAD
+=======
 	
 	public MaterialsNonMapping() {
 			
@@ -121,5 +123,6 @@ public class MaterialsNonMapping {
 	
 	
 	
+>>>>>>> c4b834d7d7df38d62774f1a61e733a1468d0f9d2
 
 }
