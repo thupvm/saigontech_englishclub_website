@@ -45,12 +45,7 @@ public class MaterialRESTController {
 		return eMaDAO.getMaterialByTitle(eMa);
 	}
 	
-<<<<<<< HEAD
 	@RequestMapping(value = "/manage/material", method = RequestMethod.POST)
-	public CustomResponseEntity addMaterial(@RequestBody Material newEMa){
-		return eMaDAO.addMaterial(newEMa);	
-=======
-	@RequestMapping(value = "/MaterialREST", method = RequestMethod.POST)
 	public CustomResponseEntity addMaterial(@RequestBody MaterialsNonMapping newMaterial){
 		try {
 			Material materialHibernate = new Material();
@@ -68,7 +63,6 @@ public class MaterialRESTController {
 			return CustomResponseEntity.getDatabaseErrorResponse();
 		}
 		
->>>>>>> c4b834d7d7df38d62774f1a61e733a1468d0f9d2
 	}
 	
 	@RequestMapping(value = "/manage/material/{id}", method = RequestMethod.DELETE)
@@ -77,12 +71,8 @@ public class MaterialRESTController {
 		
 	}
 	
-<<<<<<< HEAD
+
 	@RequestMapping(value = "/manage/material", method = RequestMethod.PUT)
-	public CustomResponseEntity updateMaterial(@PathVariable Material updateEMa){
-		return eMaDAO.updateMaterial(updateEMa);
-=======
-	@RequestMapping(value = "/MaterialREST", method = RequestMethod.PUT)
 	public CustomResponseEntity updateMaterial(@RequestBody MaterialsNonMapping updateMa){
 		try {
 			Material materialHibernate = new Material();
@@ -99,7 +89,7 @@ public class MaterialRESTController {
 			e.printStackTrace();
 			return CustomResponseEntity.getDatabaseErrorResponse();
 		}
->>>>>>> c4b834d7d7df38d62774f1a61e733a1468d0f9d2
+
 	}
 
 	
