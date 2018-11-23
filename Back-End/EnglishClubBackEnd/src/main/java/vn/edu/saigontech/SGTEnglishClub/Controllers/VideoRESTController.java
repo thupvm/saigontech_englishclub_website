@@ -59,6 +59,7 @@ public class VideoRESTController {
 		
 			return videoDAO.addVideo(newVideoHibernate);
 		} catch (Exception e) {
+			e.printStackTrace();
 			// TODO Auto-generated catch block
 			return CustomResponseEntity.getDatabaseErrorResponse();
 		}

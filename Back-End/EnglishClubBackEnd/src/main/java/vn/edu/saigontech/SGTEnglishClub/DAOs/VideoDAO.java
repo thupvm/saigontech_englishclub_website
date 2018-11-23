@@ -18,11 +18,12 @@ public class VideoDAO {
 	public CustomResponseEntity getAllVideo() {
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			Query<?> qry = session.createQuery("from Video");
+			Query<?> qry = session.createQuery("from Video v order by v.id desc");
 			List<Video> videoArr = (List<Video>) qry.list();
 			System.out.println(videoArr.size());
 			return CustomResponseEntity.getOKResponse("This is the list of video", videoArr);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return CustomResponseEntity.getDatabaseErrorResponse();
 		}
 	}

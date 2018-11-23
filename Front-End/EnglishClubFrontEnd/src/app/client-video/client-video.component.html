@@ -1,33 +1,38 @@
 <div class="container-fluid">
   <div class="row">
-    <!-- filter o day -->
+    <div class="dropdown ml-3">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        Video Types
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item">Another action</a>
+        <a class="dropdown-item">Something else here</a>
+      </div>
+    </div>
   </div>
+  <br/>
   <div class="row">
-    <div class="col-12 col-sm-3 mb-4">
-      <div class="card">
-        <p class="card-header bg-primary text-white"><b>Noo Phuoc Thinh</b></p>
-        <div class="card-body">
-          <div class="embed-responsive embed-responsive-1by1">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/QdXdx9IaakA" allowfullscreen></iframe>
-          </div>
-          <br />
-          <p>Post date: </p>
+    <div *ngFor="let video of videos" class="col-12 col-sm-3 mb-4 cursor-finger">
+      <div class="card" data-toggle="modal" data-target="#detailModal" (click)="openDetail(video.description, video.link)">
+        <label class="card-header bg-primary text-white hide-overflow-text cursor-finger" >
+          <b>{{video.title}}</b>
+        </label>
+        <div class="card-body" >
+          <img [src]="getYoutubeVidID(video.link)" width="100%" height="150px" />
         </div>
-        <div class="card-footer bg-light">
-          <a href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModal">Read more...</a>
+        <div class="card-footer">
+          <p>Post date: {{video.postdate}}</p>
+          <p>Post by: {{video.admin.username}}</p>
         </div>
       </div>
     </div>
-
-
-
-
   </div>
 </div>
 
 
 
-<div id="myModal" class="modal fade" role="dialog">
+<div id="detailModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -36,9 +41,13 @@
         <h5>Description: </h5>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
+        <p>{{videoDescription}}</p>
       </div>
       <div class="modal-footer">
+
+        <a data-fancybox [href]="videoLink" class="watch-button">
+          <button type="button" class="btn btn-success ">Watch</button>
+        </a>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
       </div>
     </div>

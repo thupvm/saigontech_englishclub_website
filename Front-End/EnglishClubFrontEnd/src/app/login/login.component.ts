@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { ConnectionService } from '../connection.service';
+import { NonSecureApiService } from '../non-secure-api.service';
 declare var $: any;
 var username: string;
 var password: string;
@@ -10,11 +10,11 @@ var self: any;
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [CookieService, ConnectionService]
+  providers: [CookieService, NonSecureApiService]
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private connection: ConnectionService, private cookie: CookieService) {
+  constructor(private router: Router, private api: NonSecureApiService, private cookie: CookieService) {
     
   }
 
@@ -29,11 +29,11 @@ export class LoginComponent implements OnInit {
     var loginContent = new FormData();
     loginContent.append("username", username);
     loginContent.append("password", password);
-
+   
     $.ajax({
-      url: this.connection.getConnection() + "manage/login",
+      url: this.api.user.login.url,
       data: loginContent,
-      type: "POST",
+      type: this.api.user.login.method,
       processData: false,
       contentType: false,
       success: function (data) {
