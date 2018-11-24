@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -15,6 +15,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { ClientEMaterialComponent } from './client-e-material/client-e-material.component';
 import { ClientTipComponent } from './client-tip/client-tip.component';
 import { ClientNewsComponent } from './client-news/client-news.component';
+import { AdminVideoComponent } from './admin-video/admin-video.component';
+import { AdminEMaterialComponent } from './admin-e-material/admin-e-material.component';
+import { AdminTipComponent } from './admin-tip/admin-tip.component';
+import { AdminNewsComponent } from './admin-news/admin-news.component';
 
 
 
@@ -29,13 +33,18 @@ import { ClientNewsComponent } from './client-news/client-news.component';
     ClientVideoComponent,
     ClientEMaterialComponent,
     ClientTipComponent,
-    ClientNewsComponent
+    ClientNewsComponent,
+    AdminVideoComponent,
+    AdminEMaterialComponent,
+    AdminTipComponent,
+    AdminNewsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, 
-    HttpModule
+    HttpModule,
+    NgxPaginationModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

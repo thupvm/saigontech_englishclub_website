@@ -35,13 +35,28 @@ public class VideoRESTController {
 	private VideoTypeDAO videoTypeDAO;
 
 	@RequestMapping(value = "/video", method = RequestMethod.GET)
-	public CustomResponseEntity getAllVideo() {
-		return videoDAO.getAllVideo();
+	public CustomResponseEntity getAllVideoClient() {
+		return videoDAO.getAllVideoForClient();
 	}
 
 	@RequestMapping(value = "/video/{id}", method = RequestMethod.GET)
 	public CustomResponseEntity getVideoByID(@PathVariable("id") int id) {
 		return videoDAO.getVideoByID(id);
+	}
+	
+	@RequestMapping(value = "/video/search/{someString}", method = RequestMethod.GET)
+	public CustomResponseEntity getVideoByID(@PathVariable("someString") String someString) {
+		return videoDAO.searchVideos(someString);
+	}
+	
+	@RequestMapping(value = "/video/search/type/{vidTypeID}", method = RequestMethod.GET)
+	public CustomResponseEntity getVideoByVideoTypeID(@PathVariable("vidTypeID") int vidTypeID) {
+		return videoDAO.searchVideosByType(vidTypeID);
+	}
+	
+	@RequestMapping(value = "/manage/video", method = RequestMethod.GET)
+	public CustomResponseEntity getAllVideoAdmin() {
+		return videoDAO.getAllVideoForAdmin();
 	}
 
 	@RequestMapping(value = "/manage/video", method = RequestMethod.POST, consumes = "application/json")

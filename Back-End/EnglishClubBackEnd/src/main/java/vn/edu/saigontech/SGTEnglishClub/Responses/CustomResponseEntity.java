@@ -48,7 +48,7 @@ public class CustomResponseEntity {
 	}
 	
 	public static CustomResponseEntity getExpiredTimeResponse() {
-		CustomResponseEntity res = new CustomResponseEntity(6, "Log-in timeout", null);
+		CustomResponseEntity res = new CustomResponseEntity(3, "Log-in timeout", null);
 		return res;
 	}
 	
@@ -61,6 +61,12 @@ public class CustomResponseEntity {
 		CustomResponseEntity res = new CustomResponseEntity(5, "Access Denied", null);
 		return res;
 	}
+	
+	public static CustomResponseEntity getNotFoundResponse() {
+		CustomResponseEntity res = new CustomResponseEntity(6, "Cannot find any record like this", null);
+		return res;
+	}
+	
 	
 	
 	

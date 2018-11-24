@@ -1,24 +1,23 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <div class="dropdown ml-3">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-        Video Types
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item">Another action</a>
-        <a class="dropdown-item">Something else here</a>
-      </div>
+
+    <div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
   </div>
+</div>
+
+<div class="container-fluid">
+
+
   <br/>
   <div class="row">
-    <div *ngFor="let video of videos" class="col-12 col-sm-3 mb-4 cursor-finger">
+    <div *ngFor="let video of videos | paginate: { itemsPerPage: 8, currentPage: p }" class="col-12 col-sm-3 mb-4 cursor-finger">
       <div class="card" data-toggle="modal" data-target="#detailModal" (click)="openDetail(video.description, video.link)">
-        <label class="card-header bg-primary text-white hide-overflow-text cursor-finger" >
+        <label class="card-header bg-primary text-white hide-overflow-text cursor-finger">
           <b>{{video.title}}</b>
         </label>
-        <div class="card-body" >
+        <div class="card-body">
           <img [src]="getYoutubeVidID(video.link)" width="100%" height="150px" />
         </div>
         <div class="card-footer">
@@ -27,8 +26,21 @@
         </div>
       </div>
     </div>
+
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="row">
+
+    <div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
   </div>
 </div>
+
+
 
 
 

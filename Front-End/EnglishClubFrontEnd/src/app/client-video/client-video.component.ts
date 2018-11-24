@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { NonSecureApiService } from '../non-secure-api.service';
+
 declare var $: any;
 var self: any;
 
@@ -15,6 +16,7 @@ export class ClientVideoComponent implements OnInit {
   videos: any;
   videoDescription: string = "none";
   videoLink: string = "none";
+  p: number = 1;
 
   constructor(private nonSecureApi: NonSecureApiService) { }
 

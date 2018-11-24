@@ -66,6 +66,10 @@ public class ApplicationContextConfig {
 		properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 		properties.put("current_session_context_class", env.getProperty("current_session_context_class"));
 		properties.put("hibernate.enable_lazy_load_no_trans", "true");
+		properties.put("hibernate.connection.CharSet", "utf8");
+		properties.put("hibernate.connection.characterEncoding", "utf8");
+		properties.put("hibernate.connection.useUnicode", "true");
+		
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 		factoryBean.setPackagesToScan(new String[] { "vn.edu.saigontech.SGTEnglishClub.Models" });
 		factoryBean.setDataSource(dataSource);
