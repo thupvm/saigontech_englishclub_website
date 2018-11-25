@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
           self.cookie.set("adminID", dataLogin.adminID);
           self.cookie.set("fullName", dataLogin.fullName);
           self.cookie.set("accessToken", dataLogin.accessToken);
-          self.router.navigate(['/client/video']);
+          self.router.navigate(['/manage/video']);
         } else {
           $("#errorMessage").text(data.message);
         }

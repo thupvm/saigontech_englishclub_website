@@ -10,11 +10,11 @@ declare var $: any;
   providers: [CookieService, ConnectionService]
 })
 export class AdminNavBarComponent implements OnInit {
-
+  fullName: string = "";
   constructor(private router: Router, private connection: ConnectionService, private cookie: CookieService) { }
 
   ngOnInit() {
-    console.log(this.cookie.getAll());
+    this.fullName = this.cookie.get("fullName"); 
   }
 
 }

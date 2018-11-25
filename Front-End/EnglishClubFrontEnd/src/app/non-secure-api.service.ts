@@ -15,11 +15,12 @@ export class NonSecureApiService {
     login : {method : 'POST', url : this.connection.link + 'manage/login'}
   };
 
+  video = {
+    getAll : {method : 'GET', url : this.connection.link + 'video'}
+  };
+
   videoType = {
     getAll : {method : 'GET', url : this.connection.link + 'videoType'}
   };
 
-  video = {
-    getAll : {method : 'GET', url : this.connection.link + 'video'}
-  };
 }

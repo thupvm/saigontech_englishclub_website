@@ -13,21 +13,10 @@
       <button class="navbar-toggler navbar-toggler hidden-md-down align-self-center mr-3" type="button" data-toggle="minimize">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <form class="form-inline mt-2 mt-md-0 hidden-md-down">
-        <input class="form-control mr-sm-2 search" type="text" placeholder="Search">
-      </form>
-      <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
-        <li class="nav-item">
-          <a class="nav-link profile-pic" href="#">
-            <img class="rounded-circle" src="" alt="">
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="fa fa-th"></i>
-          </a>
-        </li>
-      </ul>
+      <div class="mt-2 hidden-md-down">
+        <h4 id="ComponentTitle" class="mt-2 text text-white"></h4>
+      </div>
+
       <button class="navbar-toggler navbar-toggler-right hidden-lg-up align-self-center" type="button" data-toggle="offcanvas">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -37,50 +26,58 @@
   <div class="container-fluid">
     <div class="row row-offcanvas row-offcanvas-right">
       <nav class="bg-white sidebar sidebar-fixed sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
+        <ul class="nav mt-3">
+          <li class="nav-item ml-3 mb-3 text-primary">
+            <b data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">{{fullName}}</b>
+
+          </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" routerLink="/manage/ematerial" aria-expanded="false" aria-controls="collapseExample">
               <!-- <i class="fa fa-address-book"></i> -->
               <img src="../src/assets/images/icons/ematerials.png" alt="">
-              <span class="menu-title"><b>e-Materials</b>
-                
+              <span class="menu-title">
+                <b>e-Materials</b>
+
               </span>
             </a>
-            
+
           </li>
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" routerLink="/manage/tip" aria-expanded="false" aria-controls="collapseExample">
               <!-- <i class="fa fa-address-book"></i> -->
               <img src="../src/assets/images/icons/tips.png" alt="">
-              <span class="menu-title"><b>Tips</b>
-                
+              <span class="menu-title">
+                <b>Tips</b>
+
               </span>
             </a>
-            
-            
+
+
           </li>
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" routerLink="/manage/video" aria-expanded="false" aria-controls="collapseExample">
               <!-- <i class="fa fa-address-book"></i> -->
               <img src="../src/assets/images/icons/video.png" alt="">
-              <span class="menu-title"><b>Videos</b>
-               
+              <span class="menu-title">
+                <b>Videos</b>
+
               </span>
             </a>
-            
+
           </li>
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" routerLink="/manage/news" aria-expanded="false" aria-controls="collapseExample">
               <!-- <i class="fa fa-address-book"></i> -->
               <img src="../src/assets/images/icons/news.png" alt="">
-              <span class="menu-title"><b>News</b>
-                
+              <span class="menu-title">
+                <b>News</b>
+
               </span>
             </a>
-            
+
           </li>
         </ul>
       </nav>

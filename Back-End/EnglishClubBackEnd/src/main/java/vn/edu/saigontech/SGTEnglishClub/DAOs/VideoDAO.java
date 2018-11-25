@@ -86,53 +86,8 @@ public class VideoDAO {
 			return CustomResponseEntity.getDatabaseErrorResponse();
 		}
 	}
+	
 
-	public CustomResponseEntity searchVideos(String someString) {
 
-		List<Video> targetVideos = null;
-		try {
-			Session session = sessionFactory.getCurrentSession();
-			String qry = "FROM Video v WHERE " + "v.title LIKE '%'||:someString||'%' OR "
-					+ "v.description LIKE '%'||:someString||'%'";
-			Query searchNews = session.createQuery(qry).setParameter("someString", someString);
-			targetVideos = (List<Video>) searchNews.list();
-			if (targetVideos.size() > 0) {
-
-				return CustomResponseEntity.getOKResponse(
-						"This is Videos with title/desciption contains '" + someString + "'", targetVideos);
-			} else {
-				return CustomResponseEntity.getNotFoundResponse();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return CustomResponseEntity.getDatabaseErrorResponse();
-		}
-
-	}
-
-	public CustomResponseEntity searchVideosByType(int videoTypeID) {
-
-		List<Video> targetVideos = null;
-		try {
-			Session session = sessionFactory.getCurrentSession();
-			String qry = "FROM Video v WHERE " + "v.videotype.id = :vidTypeID";
-			Query searchNews = session.createQuery(qry).setParameter("vidTypeID", videoTypeID);
-			targetVideos = (List<Video>) searchNews.list();
-			if (targetVideos.size() > 0) {
-
-				return CustomResponseEntity.getOKResponse(
-						"This is you target videos with type " + targetVideos.get(0).getVideotype().getName(),
-						targetVideos);
-			} else {
-				return CustomResponseEntity.getNotFoundResponse();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return CustomResponseEntity.getDatabaseErrorResponse();
-		}
-
-	}
 
 }

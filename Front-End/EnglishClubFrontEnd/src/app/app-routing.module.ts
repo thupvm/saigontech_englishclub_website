@@ -27,7 +27,7 @@ const routes: Routes = [
     children: [
       {
         path: 'video',
-        component: AdminNewsComponent
+        component: AdminVideoComponent
       },
       {
         path: 'ematerial',

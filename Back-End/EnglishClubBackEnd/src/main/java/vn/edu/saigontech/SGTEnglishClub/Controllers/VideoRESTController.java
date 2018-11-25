@@ -42,17 +42,7 @@ public class VideoRESTController {
 	@RequestMapping(value = "/video/{id}", method = RequestMethod.GET)
 	public CustomResponseEntity getVideoByID(@PathVariable("id") int id) {
 		return videoDAO.getVideoByID(id);
-	}
-	
-	@RequestMapping(value = "/video/search/{someString}", method = RequestMethod.GET)
-	public CustomResponseEntity getVideoByID(@PathVariable("someString") String someString) {
-		return videoDAO.searchVideos(someString);
-	}
-	
-	@RequestMapping(value = "/video/search/type/{vidTypeID}", method = RequestMethod.GET)
-	public CustomResponseEntity getVideoByVideoTypeID(@PathVariable("vidTypeID") int vidTypeID) {
-		return videoDAO.searchVideosByType(vidTypeID);
-	}
+	}	
 	
 	@RequestMapping(value = "/manage/video", method = RequestMethod.GET)
 	public CustomResponseEntity getAllVideoAdmin() {
@@ -84,6 +74,8 @@ public class VideoRESTController {
 	public CustomResponseEntity deleteVideo(@PathVariable("id") int id) {
 		return videoDAO.deleteVideo(id);
 	}
+	
+
 
 	@RequestMapping(value = "/manage/video", method = RequestMethod.PUT, consumes = "application/json")
 	public CustomResponseEntity updateVideo(@RequestBody VideoNonMapping updateVideo) {
