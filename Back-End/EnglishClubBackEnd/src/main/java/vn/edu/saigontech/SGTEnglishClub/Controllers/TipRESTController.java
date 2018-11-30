@@ -35,7 +35,7 @@ public class TipRESTController {
 
 	@RequestMapping(value = "/tip", method = RequestMethod.GET)
 	public CustomResponseEntity getAllTips() {
-		return tipDAO.getAllTip();
+		return tipDAO.getAllTipForClient();
 	}
 
 	@RequestMapping(value = "/tip/{id}", method = RequestMethod.GET)
@@ -47,6 +47,12 @@ public class TipRESTController {
 	public CustomResponseEntity getTipByTitle(@PathVariable String newsStr) {
 		return tipDAO.getTipByTitle(newsStr);
 	}
+	
+	@RequestMapping(value = "/manage/tip", method = RequestMethod.GET)
+	public CustomResponseEntity getAllTips1() {
+		return tipDAO.getAllTipForAdmin();
+	}
+
 
 	@RequestMapping(value = "/manage/tip", method = RequestMethod.POST)
 	public CustomResponseEntity addTip(@RequestParam("adminID") int adminID, @RequestParam("tipTypeID") int tipTypeID,

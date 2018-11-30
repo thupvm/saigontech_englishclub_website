@@ -18,11 +18,30 @@ public class TipDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-	public CustomResponseEntity getAllTip() {
+	public CustomResponseEntity getAllTipForAdmin() {
 		CustomResponseEntity response = new CustomResponseEntity();
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			Query<?> qry = session.createQuery("from Tip");
+
+			response.setErrorCode(0);
+			response.setMessage("This is List of all Tip");
+			response.setData(qry.list());
+
+		} catch (Exception e) {
+			response.setErrorCode(1);
+			response.setMessage("Error of database");
+			response.setData(e.getMessage());
+		}
+
+		return response;
+	}
+	
+	public CustomResponseEntity getAllTipForClient() {
+		CustomResponseEntity response = new CustomResponseEntity();
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query<?> qry = session.createQuery("from Tip t where t.status = true order by t.id desc");
 
 			response.setErrorCode(0);
 			response.setMessage("This is List of all Tip");
