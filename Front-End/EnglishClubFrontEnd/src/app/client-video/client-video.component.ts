@@ -56,7 +56,7 @@ export class ClientVideoComponent implements OnInit {
       }
     });
 
-
+  
   }
 
   getYoutubeVidID(url_string: string) {

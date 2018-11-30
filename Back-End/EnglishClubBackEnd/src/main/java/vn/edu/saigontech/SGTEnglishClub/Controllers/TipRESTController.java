@@ -2,12 +2,16 @@ package vn.edu.saigontech.SGTEnglishClub.Controllers;
 
 import java.text.SimpleDateFormat;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import vn.edu.saigontech.SGTEnglishClub.DAOs.AdminDAO;
 import vn.edu.saigontech.SGTEnglishClub.DAOs.TipDAO;
@@ -15,8 +19,8 @@ import vn.edu.saigontech.SGTEnglishClub.DAOs.TipTypeDAO;
 import vn.edu.saigontech.SGTEnglishClub.Models.Admin;
 import vn.edu.saigontech.SGTEnglishClub.Models.Tip;
 import vn.edu.saigontech.SGTEnglishClub.Models.TipType;
-import vn.edu.saigontech.SGTEnglishClub.Models.nonMapping.TipNonMapping;
 import vn.edu.saigontech.SGTEnglishClub.Responses.CustomResponseEntity;
+import vn.edu.saigontech.SGTEnglishClub.Utils.fileUploadUtils;
 
 @RestController
 public class TipRESTController {
@@ -45,16 +49,22 @@ public class TipRESTController {
 	}
 
 	@RequestMapping(value = "/manage/tip", method = RequestMethod.POST)
-	public CustomResponseEntity addTip(@RequestBody TipNonMapping newTip) {
+	public CustomResponseEntity addTip(@RequestParam("adminID") int adminID, @RequestParam("tipTypeID") int tipTypeID,
+			@RequestParam("title") String title, @RequestParam("titleImage") MultipartFile image,
+			@RequestParam("content") String content, @RequestParam("postDate") String postDate,
+			HttpServletRequest req) {
 		try {
 			Tip tipHibernate = new Tip();
-			tipHibernate.setAdmin((Admin) adminDAO.getAdminByID(newTip.getAdminId()).getData());
-			tipHibernate.setTiptype((TipType) tipTypeDAO.getTipTypeByID(newTip.getTiptypeId()).getData());
-			tipHibernate.setTitle(newTip.getTitle());
-			tipHibernate.setTitlepicture(newTip.getTitlepicture());
-			tipHibernate.setContent(newTip.getContent());
-			tipHibernate.setPostdate(new SimpleDateFormat("dd/mm/yyyy").parse(newTip.getPostdate()));
-			tipHibernate.setStatus(newTip.isStatus());
+			tipHibernate.setAdmin((Admin) adminDAO.getAdminByID(adminID).getData());
+			tipHibernate.setTiptype((TipType) tipTypeDAO.getTipTypeByID(tipTypeID).getData());
+			tipHibernate.setTitle(title);
+			tipHibernate.setTitlepicture(
+					fileUploadUtils.saveUploadedFile(image, req.getServletContext().getRealPath("/images/")));
+
+			tipHibernate.setContent(content);
+			tipHibernate.setPostdate(new SimpleDateFormat("dd/mm/yyyy").parse(postDate));
+			tipHibernate.setStatus(true);
+
 			return tipDAO.addTip(tipHibernate);
 		} catch (Exception e) {
 			return CustomResponseEntity.getDatabaseErrorResponse();
@@ -62,25 +72,46 @@ public class TipRESTController {
 	}
 
 	@RequestMapping(value = "/manage/tip/{id}", method = RequestMethod.DELETE)
-	public CustomResponseEntity deleteTip(@PathVariable int id) {
+	public CustomResponseEntity deleteTip(@PathVariable int id, HttpServletRequest req) {
+		Tip currentTip = (Tip) tipDAO.getTipByID(id).getData();
+		
+		fileUploadUtils.deleteUploadFile(currentTip.getTitlepicture(), req.getServletContext().getRealPath("/images/"));
+		
 		return tipDAO.deleteTip(id);
 
 	}
 
-	@RequestMapping(value = "/manage/tip", method = RequestMethod.PUT)
-	public CustomResponseEntity updateTip(@RequestBody TipNonMapping updateTip) {
+	@RequestMapping(value = "/manage/tip/{id}", method = RequestMethod.POST)
+	public CustomResponseEntity updateTip(@PathVariable("id") int id, 
+			@RequestParam("adminID") int adminID,
+			@RequestParam("tipTypeID") int tipTypeID, 
+			@RequestParam("title") String title,
+			@RequestParam("titleImage") MultipartFile image, 
+			@RequestParam("content") String content,
+			@RequestParam("postDate") String postDate,
+			@RequestParam("status") boolean status, 
+			HttpServletRequest req) {
 		try {
-			Tip tipHibernate = new Tip();
-			tipHibernate.setId(updateTip.getId());
-			tipHibernate.setAdmin((Admin) adminDAO.getAdminByID(updateTip.getAdminId()).getData());
-			tipHibernate.setTiptype((TipType) tipTypeDAO.getTipTypeByID(updateTip.getTiptypeId()).getData());
-			tipHibernate.setTitle(updateTip.getTitle());
-			tipHibernate.setTitlepicture(updateTip.getTitlepicture());
-			tipHibernate.setContent(updateTip.getContent());
-			tipHibernate.setPostdate(new SimpleDateFormat("dd/mm/yyyy").parse(updateTip.getPostdate()));
-			tipHibernate.setStatus(updateTip.isStatus());
+
+			Tip tipHibernate = (Tip) tipDAO.getTipByID(id).getData();
+
+			tipHibernate.setAdmin((Admin) adminDAO.getAdminByID(adminID).getData());
+			tipHibernate.setTiptype((TipType) tipTypeDAO.getTipTypeByID(tipTypeID).getData());
+			tipHibernate.setTitle(title);
+
+			if (image != null) {
+				fileUploadUtils.deleteUploadFile(tipHibernate.getTitlepicture(),
+						req.getServletContext().getRealPath("/images/"));
+
+				tipHibernate.setTitlepicture(
+						fileUploadUtils.saveUploadedFile(image, req.getServletContext().getRealPath("/images/")));
+			}
+			tipHibernate.setContent(content);
+			tipHibernate.setPostdate(new SimpleDateFormat("dd/mm/yyyy").parse(postDate));
+			tipHibernate.setStatus(status);
 			return tipDAO.updateTip(tipHibernate);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return CustomResponseEntity.getDatabaseErrorResponse();
 		}
 	}

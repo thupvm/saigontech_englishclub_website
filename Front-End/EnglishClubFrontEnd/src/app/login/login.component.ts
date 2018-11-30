@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { NonSecureApiService } from '../non-secure-api.service';
@@ -16,6 +16,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private api: NonSecureApiService, private cookie: CookieService) {
     
+  }
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+    if (event.keyCode == 13){
+      this.login();
+    }
   }
 
   ngOnInit() {
