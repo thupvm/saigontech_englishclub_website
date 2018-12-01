@@ -27,4 +27,8 @@ export class SecureApiService {
   videoType = {
     getAll : {method : 'GET', url : this.connection.link + 'videoType'}
   };
+
+  tipType = {
+    getAll : {method : 'GET', url : this.connection.link + 'tipType'}
+  };
 }

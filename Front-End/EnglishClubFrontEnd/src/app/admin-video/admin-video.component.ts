@@ -98,11 +98,11 @@ export class AdminVideoComponent implements OnInit {
       }
     });
 
-    $("#radMale, #radFemale").iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
-    });
+    // $("#radMale, #radFemale").iCheck({
+    //   checkboxClass: 'icheckbox_square-blue',
+    //   radioClass: 'iradio_square-blue',
+    //   increaseArea: '20%' // optional
+    // });
 
     //initialize modal
     $("#popup").modal({ show: false }).on('show.bs.modal', function () {
