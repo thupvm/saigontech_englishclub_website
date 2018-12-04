@@ -36,7 +36,8 @@ export class LoginComponent implements OnInit {
     var loginContent = new FormData();
     loginContent.append("username", username);
     loginContent.append("password", password);
-   
+
+    
     $.ajax({
       url: this.api.user.login.url,
       data: loginContent,

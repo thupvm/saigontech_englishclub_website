@@ -21,7 +21,7 @@ export class SecureApiService {
     getAll : {method : 'GET', url : this.connection.link + 'manage/tip'},
     remove : {method : 'DELETE', url : this.connection.link + 'manage/tip/'},
     add : {method : 'POST', url : this.connection.link + 'manage/tip'},
-    update : {method : 'PUT', url : this.connection.link + 'manage/tip/'}
+    update : {method : 'POST', url : this.connection.link + 'manage/tip/'}
   };
 
   videoType = {

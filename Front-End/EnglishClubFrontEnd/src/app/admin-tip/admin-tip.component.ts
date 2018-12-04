@@ -105,8 +105,7 @@ export class AdminTipComponent implements OnInit {
        
         $("#tipType").val(tipData.tiptype.id);
         $("#txtTitle").val(tipData.title);
-        $("#txtContent").val(tipData.content);
-        // $("#txtLink").val(tipData.link);
+        $("#txtContent").froalaEditor('html.set', tipData.content);
         $("#tipStatus").val(tipData.status+"");
       }
     });
@@ -119,7 +118,84 @@ export class AdminTipComponent implements OnInit {
       $("#statusForm").hide();
     });
 
-    
+    $('textarea#txtContent').froalaEditor({
+      heightMin: 500,
+      heightMax: 500,
+      toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo']
+    });
+
+    $("#btnSave").click(function(){
+      var date = new Date();
+
+
+      var id = $("#hidId").val();
+      if (id == 0) {
+        var addData = new FormData();
+        addData.append("adminID", self.cookie.get("adminID"));
+        addData.append("tipTypeID", $("#tipType").val());
+        addData.append("title", $("#txtTitle").val());
+        addData.append("content", $("#txtContent").val());
+        addData.append("titleImage", $("#fileChooser")[0].files[0]);
+        addData.append("postDate", self.date2str(new Date, "dd/MM/yyyy"));
+       
+
+        
+
+        $.ajax({
+          url: addTipURL,
+          data: addData,
+          type: addTipMethod,
+          processData: false,
+          contentType: false,
+          success: function (data) {
+            if (data.errorCode == 0) {
+              self.loadTable();
+              $("#popup").modal('hide');
+              $.alert('Video has been added!');
+
+            } else {
+              $.alert(data.message);
+            }
+          },
+          error: function (data) {
+            console.log(data);
+          }
+        });
+      } else {
+
+        var updateData = new FormData();
+        updateData.append("adminID", self.cookie.get("adminID"));
+        updateData.append("tipTypeID", $("#tipType").val());
+        updateData.append("title", $("#txtTitle").val());
+        updateData.append("content", $("#txtContent").val());
+        if ($("#fileChooser")[0].files[0])
+          updateData.append("titleImage", $("#fileChooser")[0].files[0]);
+        else updateData.append("titleImage", null);
+        updateData.append("postDate", self.date2str(new Date, "dd/MM/yyyy"));
+        updateData.append("status", $("#tipStatus").val());
+
+        $.ajax({
+          url: updateTipURL+tipData.id,
+          data: updateData,
+          type: updateTipMethod,
+          processData: false,
+          contentType: false,
+          success: function (data) {
+            if (data.errorCode == 0) {
+              self.loadTable();
+              $("#popup").modal('hide');
+              $.alert('Video has been updated!');
+
+            } else {
+              $.alert(data.message);
+            }
+          },
+          error: function (data) {
+            console.log(data);
+          }
+        });
+      }
+    });
 
   }
 
@@ -180,6 +256,42 @@ export class AdminTipComponent implements OnInit {
         }
       });
 
+    });
+
+    $("i[data-group=grpEdit]").off('click').click(function () {
+      var rowId = $(this).closest('tr').attr('id');
+      $("#hidId").val(rowId);
+      tipData = null;
+      for (var i = 0; i < tips.length; i++) {
+        if (rowId == tips[i].id) {
+          tipData = tips[i];
+          break;
+        }
+
+      }
+      console.log(tipData);
+      if (tipData != null){
+        $("#statusForm").show();
+        $("#popup").modal('show');
+      }
+
+    });
+  }
+
+  private date2str(x, y) {
+    var z = {
+      M: x.getMonth() + 1,
+      d: x.getDate(),
+      h: x.getHours(),
+      m: x.getMinutes(),
+      s: x.getSeconds()
+    };
+    y = y.replace(/(M+|d+|h+|m+|s+)/g, function (v) {
+      return ((v.length > 1 ? "0" : "") + eval('z.' + v.slice(-1))).slice(-2)
+    });
+
+    return y.replace(/(y+)/g, function (v) {
+      return x.getFullYear().toString().slice(-v.length)
     });
   }
 

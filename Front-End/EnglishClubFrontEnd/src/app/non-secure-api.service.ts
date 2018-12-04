@@ -23,4 +23,8 @@ export class NonSecureApiService {
     getAll : {method : 'GET', url : this.connection.link + 'videoType'}
   };
 
+  tip = {
+    getAll: {method : 'GET', url : this.connection.link + 'tip'}
+  }
+
 }
