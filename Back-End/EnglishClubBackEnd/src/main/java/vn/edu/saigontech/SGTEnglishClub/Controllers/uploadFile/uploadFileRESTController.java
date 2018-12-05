@@ -18,6 +18,9 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 import java.util.stream.Collectors;
@@ -39,7 +42,7 @@ public class uploadFileRESTController {
 		// Get file name
 		String uploadedFileName = Arrays.stream(uploadfiles).map(x -> x.getOriginalFilename())
 				.filter(x -> !StringUtils.isEmpty(x)).collect(Collectors.joining(" , "));
-		
+
 		String res = uploadedFileName;
 
 		if (StringUtils.isEmpty(uploadedFileName)) {
@@ -61,17 +64,17 @@ public class uploadFileRESTController {
 
 	@RequestMapping(value = "/getImage/{fileName:.+}", method = RequestMethod.GET)
 
-	public void showImage(HttpServletRequest request, HttpServletResponse response, @PathVariable("fileName") String fileName) throws Exception {
+	public void showImage(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("fileName") String fileName) throws Exception {
 
 		System.out.println(fileName);
 		ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
 
 		try {
 			System.out.println(request.getServletContext().getRealPath("/images/") + File.separator + fileName);
-			
-			
-			BufferedImage image = ImageIO.read(
-					new File(request.getServletContext().getRealPath("/images/") + File.separator + fileName));
+
+			BufferedImage image = ImageIO
+					.read(new File(request.getServletContext().getRealPath("/images/") + File.separator + fileName));
 			ImageIO.write(image, "jpeg", jpegOutputStream);
 		} catch (IllegalArgumentException e) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -87,6 +90,28 @@ public class uploadFileRESTController {
 		responseOutputStream.write(imgByte);
 		responseOutputStream.flush();
 		responseOutputStream.close();
-}
+	}
+	
+	@RequestMapping(value = "/getFile/{fileName:.+}", method = RequestMethod.GET)
+
+	public void downloadFile(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("fileName") String fileName) throws Exception {
+
+        String dataDirectory = request.getServletContext().getRealPath("/images/");
+        Path file = Paths.get(dataDirectory, fileName);
+        if (Files.exists(file))
+        {
+            response.setContentType("application/pdf");
+            response.addHeader("Content-Disposition", "attachment; filename="+fileName);
+            try
+            {
+                Files.copy(file, response.getOutputStream());
+                response.getOutputStream().flush();
+            }
+            catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+	}
 
 }
