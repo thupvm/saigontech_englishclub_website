@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,7 +93,7 @@ public class TipRESTController {
 			@RequestParam("adminID") int adminID,
 			@RequestParam("tipTypeID") int tipTypeID, 
 			@RequestParam("title") String title,
-			@RequestParam("titleImage") MultipartFile image, 
+			@RequestParam(value ="titleImage", required = false) MultipartFile image, 
 			@RequestParam("content") String content,
 			@RequestParam("postDate") String postDate,
 			@RequestParam("status") boolean status, 

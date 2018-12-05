@@ -7,6 +7,8 @@ var self: any;
 var getAllTipURL: string;
 var getAllTipMethod: string;
 var imageLink: string;
+
+
 @Component({
   selector: 'app-client-tip',
   templateUrl: './client-tip.component.html',
@@ -14,6 +16,8 @@ var imageLink: string;
   providers: [NonSecureApiService, ConnectionService]
 })
 export class ClientTipComponent implements OnInit {
+  tipTitle: string;
+  tipContent: string;
 
   constructor(private nonSecureApi: NonSecureApiService, private connection: ConnectionService) { }
 
@@ -42,6 +46,13 @@ export class ClientTipComponent implements OnInit {
 
   getImage(imageName: string){
     return imageLink+imageName;
+  }
+
+  openDetail(title: string, content: string){
+    this.tipTitle = title;
+    $("#tipContent").empty();
+
+    $("#tipContent").append(content);
   }
 
 }
