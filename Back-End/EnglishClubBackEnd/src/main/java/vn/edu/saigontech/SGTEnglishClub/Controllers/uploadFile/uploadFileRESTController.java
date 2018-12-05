@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import vn.edu.saigontech.SGTEnglishClub.Responses.CustomResponseEntity;
 import vn.edu.saigontech.SGTEnglishClub.Utils.fileUploadUtils;
 
 import java.awt.image.BufferedImage;
@@ -32,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
+@EnableWebMvc
 public class uploadFileRESTController {
 	@Autowired
 	ServletContext servletContext;
@@ -71,10 +74,10 @@ public class uploadFileRESTController {
 		ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
 
 		try {
-			System.out.println(request.getServletContext().getRealPath("/images/") + File.separator + fileName);
+			System.out.println(request.getServletContext().getRealPath("/images/")+ File.separator + fileName);
 
 			BufferedImage image = ImageIO
-					.read(new File(request.getServletContext().getRealPath("/images/") + File.separator + fileName));
+					.read(new File(request.getServletContext().getRealPath("/images/")  + File.separator +fileName));
 			ImageIO.write(image, "jpeg", jpegOutputStream);
 		} catch (IllegalArgumentException e) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -113,5 +116,15 @@ public class uploadFileRESTController {
             }
         }
 	}
-
+	
+	@RequestMapping(value = "/deleteFile/{fileName:.+}", method = RequestMethod.DELETE)
+	public CustomResponseEntity deleteFile(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("fileName") String fileName) {
+		boolean res = fileUploadUtils.deleteUploadFile(fileName, request.getServletContext().getRealPath("/images/"));
+		if (res == true) {
+			return CustomResponseEntity.getOKResponse("Delete "+fileName+" successfully!", null);
+		} else {
+			return CustomResponseEntity.getErrorRemovingResponse();
+		}
+	}
 }

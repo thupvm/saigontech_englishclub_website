@@ -67,6 +67,11 @@ public class CustomResponseEntity {
 		return res;
 	}
 	
+	public static CustomResponseEntity getErrorRemovingResponse() {
+		CustomResponseEntity res = new CustomResponseEntity(7, "An error occurred during removing", null);
+		return res;
+	}
+	
 	
 	
 	
