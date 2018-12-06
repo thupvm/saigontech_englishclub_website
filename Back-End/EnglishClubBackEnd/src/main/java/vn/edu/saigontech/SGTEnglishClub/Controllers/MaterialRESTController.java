@@ -43,6 +43,11 @@ public class MaterialRESTController {
 	public CustomResponseEntity getAllMaterial() {
 		return eMaDAO.getAllMaterial();
 	}
+	
+	@RequestMapping(value = "/manage/material", method = RequestMethod.GET)
+	public CustomResponseEntity getAllMaterialAdmin() {
+		return eMaDAO.getAllMaterialAdmin();
+	}
 
 	@RequestMapping(value = "/material/{id}", method = RequestMethod.GET)
 	public CustomResponseEntity getMaterialByID(@PathVariable int id) {

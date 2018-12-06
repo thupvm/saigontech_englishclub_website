@@ -25,6 +25,25 @@ public class MaterialDAO {
 		CustomResponseEntity response = new CustomResponseEntity();
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			Query<?> qry = session.createQuery("from Material m where m.status = true");
+
+			response.setErrorCode(0);
+			response.setMessage("This is List of all E-Materials");
+			response.setData(qry.list());
+
+		} catch (Exception e) {
+			response.setErrorCode(1);
+			response.setMessage("Error of database");
+			response.setData(e.getMessage());
+		}
+
+		return response;
+	}
+	
+	public CustomResponseEntity getAllMaterialAdmin() {
+		CustomResponseEntity response = new CustomResponseEntity();
+		try {
+			Session session = sessionFactory.getCurrentSession();
 			Query<?> qry = session.createQuery("from Material");
 
 			response.setErrorCode(0);

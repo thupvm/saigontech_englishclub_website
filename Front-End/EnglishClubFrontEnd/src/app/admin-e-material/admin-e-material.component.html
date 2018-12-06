@@ -1,3 +1,102 @@
-<p>
-  admin-e-material works!
-</p>
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-align-justify"></i> e-Materials
+    <div class="float-right">
+      <button id="btnAdd" type="button" class="btn btn-primary btn-sm">
+        <i class="fa fa-plus"></i> Add</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <table id="tbl" class="table table-responsive-sm table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Upload Date</th>
+          <th>Upload By</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Upload Date</th>
+          <th>Upload By</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- modal -->
+<div id="popup" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <input type="hidden" id="hidId" value="0">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Type</label>
+            <div class="col-sm-10">
+              <select id="tipType" class="form-control">
+                <option *ngFor="let type of eMaterialTypes" [value]="type.id">{{type.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="txtTitle" placeholder="Title">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Content</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" id="txtContent" placeholder="Content" rows="5"></textarea>
+
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Picture</label>
+            <div class="col-sm-10 mt-1">
+              <input type="file" class="form-control-file" id="fileChooser">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Ebook Files</label>
+            <div class="col-sm-10 mt-1">
+              <input type="file" class="form-control-file my-pond" id="fileChooserEbook" />
+            </div>
+          </div>
+
+          <div class="form-group row" id="statusForm">
+            <label class="col-sm-2 col-form-label">Status</label>
+            <div class="col-sm-10">
+              <select id="tipStatus" class="form-control">
+                <option value="true">Active</option>
+                <option value="false">Deactive</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

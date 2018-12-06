@@ -24,11 +24,22 @@ export class SecureApiService {
     update : {method : 'POST', url : this.connection.link + 'manage/tip/'}
   };
 
+  ematerial = {
+    getAll : {method : 'GET', url : this.connection.link + 'manage/material'},
+    remove : {method : 'DELETE', url : this.connection.link + 'manage/material/'},
+    add : {method : 'POST', url : this.connection.link + 'manage/materialandfile'},
+    update : {method : 'POST', url : this.connection.link + 'manage/material/'}
+  };
+
   videoType = {
     getAll : {method : 'GET', url : this.connection.link + 'videoType'}
   };
 
   tipType = {
     getAll : {method : 'GET', url : this.connection.link + 'tipType'}
+  };
+
+  ematerialType = {
+    getAll : {method : 'GET', url : this.connection.link + 'materialType'}
   };
 }

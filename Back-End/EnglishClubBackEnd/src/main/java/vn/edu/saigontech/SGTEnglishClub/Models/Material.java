@@ -17,6 +17,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import vn.edu.saigontech.SGTEnglishClub.Utils.CustomDateSerializer;
 
 @Entity
 @Table(name = "material", catalog = "sgt_englishclub")
@@ -114,6 +117,7 @@ public class Material implements java.io.Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "POSTDATE", length = 0)
+	@JsonSerialize(using = CustomDateSerializer.class)
 	public Date getPostdate() {
 		return this.postdate;
 	}
