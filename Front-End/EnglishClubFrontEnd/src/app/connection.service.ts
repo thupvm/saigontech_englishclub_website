@@ -10,5 +10,6 @@ export class ConnectionService {
   link = "http://localhost:8080/SaigonTechEnglishClubBackEnd/";
 
   imageLink = this.link+'getImage/';
+  fileLink = this.link+'getFile/';
 
 }

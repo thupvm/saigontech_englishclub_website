@@ -61,6 +61,33 @@ public class FileDAO {
 		return response;
 	}
 	
+	public CustomResponseEntity getFileByMaterialID(int id) {
+		CustomResponseEntity response = new CustomResponseEntity();
+		List<File> target = null;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query<?> qry = session.createQuery("from File f where f.material.id = :id").setParameter("id", id);
+			target = (List<File>) qry.list();
+			if (target.size() > 0) {
+				response.setErrorCode(0);
+				response.setMessage("This is File with material id equal " + id);
+				response.setData(target);
+			} else {
+				response.setErrorCode(2);
+				response.setMessage("This File is not exist");
+				response.setData(null);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setErrorCode(1);
+			response.setMessage("Error of database");
+			response.setData(null);
+		}
+
+		return response;
+	}
+	
 	public CustomResponseEntity getFileByNameFile(String name) {
 		CustomResponseEntity response = new CustomResponseEntity();
 		List<File> target = null;

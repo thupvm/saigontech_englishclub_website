@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { SecureApiService } from '../secure-api.service';
 import { CookieService } from 'ngx-cookie-service';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 
 declare var $: any;
 var self: any;
@@ -12,6 +11,9 @@ var eMaterials: any;
 
 var getAllEMaterialURL: string;
 var getAllEMaterialMethod: string;
+
+var addEMaterialURL: string;
+var addEMaterialMethod: string;
 
 var deleteEMaterialURL: string;
 var deleteEMaterialMethod: string;
@@ -35,6 +37,9 @@ export class AdminEMaterialComponent implements OnInit {
 
     getAllEMaterialURL = this.secureApi.ematerial.getAll.url;
     getAllEMaterialMethod = this.secureApi.ematerial.getAll.method;
+
+    addEMaterialURL = this.secureApi.ematerial.add.url;
+    addEMaterialMethod = this.secureApi.ematerial.add.method;
 
     deleteEMaterialURL = this.secureApi.ematerial.remove.url;
     deleteEMaterialMethod = this.secureApi.ematerial.remove.method;
@@ -115,41 +120,45 @@ export class AdminEMaterialComponent implements OnInit {
       $("#statusForm").hide();
     });
 
-    //-----------------------------------------------------
-    // First register any plugins
-    $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
-
-    // Turn input element into a pond
-    $('.my-pond').filepond();
-
-    // Set allowMultiple property to true
-    $('.my-pond').filepond('allowMultiple', true);
-  
-    // Listen for addfile event
-    $('.my-pond').on('FilePond:addfile', function(e) {
-      console.log('file added event', e);
+    $("#addEbookBTN").click(function () {
+      $("#ebookContainer").append("<input name='ebookChooser' type='file' class='form-control-file mb-2'/>");
     });
-    $("#btnSave").click(function(){
-      alert("hihi");
-      // console.log($('.my-pond').filepond('getFiles'));
-      var fileArr = $('.my-pond').filepond('getFiles');
-      var fd = new FormData();
-      for (var i = 0 ; i < fileArr.length; i++){
-        fd.append("files", fileArr[i]);
-      }
+
+    $("#btnSave").click(function () {
+
+      var addData: FormData = new FormData();
+      addData.append("adminID", self.cookie.get("adminID"));
+      addData.append("eMaterialTypeID", $("#tipType").val());
+      addData.append("titleImage", $("#fileChooser")[0].files[0]);
+      addData.append("title", $("#txtTitle").val());
+      addData.append("content", $("#txtContent").val());
+      
+      addData.append("postdate", self.date2str(new Date, "dd/MM/yyyy"));
+      $('input[name=ebookChooser]').each(function () {
+        addData.append("ebooks", $(this)[0].files[0]);
+      });
+
       $.ajax({
-        url: "http://localhost:8080/SaigonTechEnglishClubBackEnd/uploadFile",
-        data: fd,
-        type: "POST",
+        url: addEMaterialURL,
+        data: addData,
+        type: addEMaterialMethod,
         processData: false,
         contentType: false,
         success: function (data) {
-          console.log(data);
+          if (data.errorCode == 0) {
+            self.loadTable();
+            $("#popup").modal('hide');
+            $.alert('Material has been added!');
+
+          } else {
+            $.alert(data.message);
+          }
         },
         error: function (data) {
           console.log(data);
         }
       });
+
     });
   }
 
@@ -210,6 +219,23 @@ export class AdminEMaterialComponent implements OnInit {
         }
       });
 
+    });
+  }
+
+  private date2str(x, y) {
+    var z = {
+      M: x.getMonth() + 1,
+      d: x.getDate(),
+      h: x.getHours(),
+      m: x.getMinutes(),
+      s: x.getSeconds()
+    };
+    y = y.replace(/(M+|d+|h+|m+|s+)/g, function (v) {
+      return ((v.length > 1 ? "0" : "") + eval('z.' + v.slice(-1))).slice(-2)
+    });
+
+    return y.replace(/(y+)/g, function (v) {
+      return x.getFullYear().toString().slice(-v.length)
     });
   }
 

@@ -31,6 +31,13 @@ public class FileRESTController {
 		return fileDao.getFileByID(id);
 	}
 	
+	@RequestMapping(value = "/file/material/{id}", method = RequestMethod.GET)
+	public CustomResponseEntity getAdminByMaterialID(@PathVariable int id) {
+		return fileDao.getFileByMaterialID(id);
+	}
+	
+	
+	
 	@RequestMapping(value = "/file/{fileStr}", method = RequestMethod.GET)
 	public CustomResponseEntity getFileByFileName(@PathVariable String fileStr) {
 		return fileDao.getFileByNameFile(fileStr);
