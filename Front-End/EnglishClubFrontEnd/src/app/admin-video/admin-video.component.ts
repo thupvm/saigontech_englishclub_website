@@ -137,7 +137,7 @@ export class AdminVideoComponent implements OnInit {
       if (id == 0) {
         var addData = {
           "adminID": self.cookie.get("adminID"),
-          "tipTypeID": $("#videoType").val(),
+          "videoTypeID": $("#videoType").val(),
           "title": $("#txtTitle").val(),
           "description": $("#txtDescription").val(),
           "link": $("#txtLink").val(),

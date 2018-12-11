@@ -10,7 +10,7 @@
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-lg-3 col-md-6 mb-4 tip-card" *ngFor="let material of materials | paginate: { itemsPerPage: 8, currentPage: p }"
+    <div class="col-lg-3 col-md-6 mb-4" *ngFor="let material of materials | paginate: { itemsPerPage: 8, currentPage: p }"
       data-toggle="modal" data-target=".bd-example-modal-lg" (click)="openDetail(material.title, material.content, material.id);">
       <div class="card h-100">
         <img class="card-img-top" width="110px" height="150px" [src]="getImage(material.titlepicture)" alt="">

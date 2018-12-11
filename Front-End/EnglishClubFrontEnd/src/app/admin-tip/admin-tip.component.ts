@@ -151,7 +151,7 @@ export class AdminTipComponent implements OnInit {
             if (data.errorCode == 0) {
               self.loadTable();
               $("#popup").modal('hide');
-              $.alert('Video has been added!');
+              $.alert('Tip has been added!');
 
             } else {
               $.alert(data.message);
@@ -184,7 +184,7 @@ export class AdminTipComponent implements OnInit {
             if (data.errorCode == 0) {
               self.loadTable();
               $("#popup").modal('hide');
-              $.alert('Video has been updated!');
+              $.alert('Tip has been updated!');
 
             } else {
               $.alert(data.message);
@@ -239,10 +239,10 @@ export class AdminTipComponent implements OnInit {
                 type: deleteTipMethod,
                 success: function (data) {
                   if (data.errorCode == 0) {
-                    $.alert('Video has been deleted!');
+                    $.alert('Tip has been deleted!');
                     self.loadTable();
                   } else {
-                    $.alert('Video has not been deleted!');
+                    $.alert('Tip has not been deleted!');
                   }
 
                 },

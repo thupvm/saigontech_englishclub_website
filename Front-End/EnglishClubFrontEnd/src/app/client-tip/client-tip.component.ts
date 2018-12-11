@@ -18,7 +18,8 @@ var imageLink: string;
 export class ClientTipComponent implements OnInit {
   tipTitle: string;
   tipContent: string;
-
+  tips: any;
+  p: any;
   constructor(private nonSecureApi: NonSecureApiService, private connection: ConnectionService) { }
 
   ngOnInit() {

@@ -104,7 +104,7 @@ public class ApplicationContextConfig {
 	public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
 		multipartResolver.setDefaultEncoding("utf-8");
-		multipartResolver.setMaxUploadSize(10000000);
+		multipartResolver.setMaxUploadSize(Integer.MAX_VALUE);
 		return multipartResolver;
 	}
 	

@@ -39,7 +39,7 @@
   <div class="modal-dialog  modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Info</h5>
+        <h5 class="modal-title">Material Info</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -50,7 +50,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Type</label>
             <div class="col-sm-10">
-              <select id="tipType" class="form-control">
+              <select id="eMaterialType" class="form-control">
                 <option *ngFor="let type of eMaterialTypes" [value]="type.id">{{type.name}}</option>
               </select>
             </div>
@@ -78,7 +78,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Ebook Files</label>
             <div class="col-sm-10 mt-1">
-              <!-- <input type="file" class="form-control-file ebookChooser" id="fileChooserEbook" /> -->
+              
               <div id="ebookContainer" class="mb-4"></div>
               <button id="addEbookBTN" class="btn btn-primary">Add Material</button>
             </div>
@@ -87,7 +87,7 @@
           <div class="form-group row" id="statusForm">
             <label class="col-sm-2 col-form-label">Status</label>
             <div class="col-sm-10">
-              <select id="tipStatus" class="form-control">
+              <select id="eMaterialStatus" class="form-control">
                 <option value="true">Active</option>
                 <option value="false">Deactive</option>
               </select>

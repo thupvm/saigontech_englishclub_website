@@ -21,6 +21,8 @@ var deleteEMaterialMethod: string;
 var getAllEMaterialTypeURL: string;
 var getAllEMaterialTypeMethod: string;
 
+
+
 @Component({
   selector: 'app-admin-e-material',
   templateUrl: './admin-e-material.component.html',
@@ -106,11 +108,11 @@ export class AdminEMaterialComponent implements OnInit {
         $("#txtContent").val("");
         $("#txtPicture").val("");
       } else {
-
-        // $("#tipType").val(tipData.tiptype.id);
-        // $("#txtTitle").val(tipData.title);
-        // $("#txtContent").froalaEditor('html.set', tipData.content);
-        // $("#tipStatus").val(tipData.status+"");
+        $("#txtContent").froalaEditor();
+        $("#eMaterialType").val(eMaterialData.materialtype.id);
+        $("#txtTitle").val(eMaterialData.title);
+        $("#txtContent").froalaEditor('html.set', eMaterialData.content);
+        $("#eMaterialStatus").val(eMaterialData.status+"");
       }
     });
 
@@ -128,7 +130,7 @@ export class AdminEMaterialComponent implements OnInit {
 
       var addData: FormData = new FormData();
       addData.append("adminID", self.cookie.get("adminID"));
-      addData.append("eMaterialTypeID", $("#tipType").val());
+      addData.append("eMaterialTypeID", $("#eMaterialType").val());
       addData.append("titleImage", $("#fileChooser")[0].files[0]);
       addData.append("title", $("#txtTitle").val());
       addData.append("content", $("#txtContent").val());
@@ -202,10 +204,10 @@ export class AdminEMaterialComponent implements OnInit {
                 type: deleteEMaterialMethod,
                 success: function (data) {
                   if (data.errorCode == 0) {
-                    $.alert('e-Material has been deleted!');
+                    $.alert('Material has been deleted!');
                     self.loadTable();
                   } else {
-                    $.alert('e-Material has not been deleted!');
+                    $.alert('Material has not been deleted!');
                   }
 
                 },
@@ -218,6 +220,25 @@ export class AdminEMaterialComponent implements OnInit {
           no: function () { },
         }
       });
+
+    });
+
+    $("i[data-group=grpEdit]").off('click').click(function () {
+      var rowId = $(this).closest('tr').attr('id');
+      $("#hidId").val(rowId);
+      eMaterialData = null;
+      for (var i = 0; i < eMaterials.length; i++) {
+        if (rowId == eMaterials[i].id) {
+          eMaterialData = eMaterials[i];
+          break;
+        }
+
+      }
+      console.log(eMaterialData);
+      if (eMaterialData != null){
+        $("#statusForm").show();
+        $("#popup").modal('show');
+      }
 
     });
   }

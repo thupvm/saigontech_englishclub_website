@@ -12,6 +12,7 @@ var getAllFileByMaterialIDURL: string;
 var getAllFileByMaterialIDMethod: string;
 var fileLink: string;
 
+
 var files: any;
 
 @Component({
@@ -23,7 +24,8 @@ var files: any;
 export class ClientEMaterialComponent implements OnInit {
   materialTitle: string;
   materialContent: string;
-
+  materials: any;
+  p: any;
   constructor(private nonSecureApi: NonSecureApiService, private connection: ConnectionService) { }
 
   ngOnInit() {
