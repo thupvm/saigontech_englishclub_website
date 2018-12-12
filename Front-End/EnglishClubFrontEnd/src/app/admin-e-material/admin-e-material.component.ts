@@ -112,7 +112,7 @@ export class AdminEMaterialComponent implements OnInit {
         $("#eMaterialType").val(eMaterialData.materialtype.id);
         $("#txtTitle").val(eMaterialData.title);
         $("#txtContent").froalaEditor('html.set', eMaterialData.content);
-        $("#eMaterialStatus").val(eMaterialData.status+"");
+        $("#eMaterialStatus").val(eMaterialData.status + "");
       }
     });
 
@@ -127,40 +127,55 @@ export class AdminEMaterialComponent implements OnInit {
     });
 
     $("#btnSave").click(function () {
+      var id = $("#hidId").val();
+      if (id == 0) {
+        var addData: FormData = new FormData();
+        addData.append("adminID", self.cookie.get("adminID"));
+        addData.append("eMaterialTypeID", $("#eMaterialType").val());
+        addData.append("titleImage", $("#fileChooser")[0].files[0]);
+        addData.append("title", $("#txtTitle").val());
+        addData.append("content", $("#txtContent").val());
 
-      var addData: FormData = new FormData();
-      addData.append("adminID", self.cookie.get("adminID"));
-      addData.append("eMaterialTypeID", $("#eMaterialType").val());
-      addData.append("titleImage", $("#fileChooser")[0].files[0]);
-      addData.append("title", $("#txtTitle").val());
-      addData.append("content", $("#txtContent").val());
-      
-      addData.append("postdate", self.date2str(new Date, "dd/MM/yyyy"));
-      $('input[name=ebookChooser]').each(function () {
-        addData.append("ebooks", $(this)[0].files[0]);
-      });
+        addData.append("postdate", self.date2str(new Date, "dd/MM/yyyy"));
+        $('input[name=ebookChooser]').each(function () {
+          addData.append("ebooks", $(this)[0].files[0]);
+        });
 
-      $.ajax({
-        url: addEMaterialURL,
-        data: addData,
-        type: addEMaterialMethod,
-        processData: false,
-        contentType: false,
-        success: function (data) {
-          if (data.errorCode == 0) {
-            self.loadTable();
-            $("#popup").modal('hide');
-            $.alert('Material has been added!');
+        $.ajax({
+          url: addEMaterialURL,
+          data: addData,
+          type: addEMaterialMethod,
+          processData: false,
+          contentType: false,
+          success: function (data) {
+            if (data.errorCode == 0) {
+              self.loadTable();
+              $("#popup").modal('hide');
+              $.alert('Material has been added!');
 
-          } else {
-            $.alert(data.message);
+            } else {
+              $.alert(data.message);
+            }
+          },
+          error: function (data) {
+            console.log(data);
           }
-        },
-        error: function (data) {
-          console.log(data);
-        }
-      });
+        });
+      } else {
+        var updateData = new FormData();
 
+        updateData.append("adminID", self.cookie.get("adminID"));
+        updateData.append("eMaterialTypeID", $("#eMaterialType").val());
+        if ($("#fileChooser")[0].files[0])
+          updateData.append("titleImage", $("#fileChooser")[0].files[0]);
+        else updateData.append("titleImage", null);
+        updateData.append("title", $("#txtTitle").val());
+        updateData.append("content", $("#txtContent").val());
+
+        updateData.append("postdate", self.date2str(new Date, "dd/MM/yyyy"));
+        updateData.append("status", $("#tipStatus").val());
+
+      }
     });
   }
 
@@ -235,7 +250,7 @@ export class AdminEMaterialComponent implements OnInit {
 
       }
       console.log(eMaterialData);
-      if (eMaterialData != null){
+      if (eMaterialData != null) {
         $("#statusForm").show();
         $("#popup").modal('show');
       }

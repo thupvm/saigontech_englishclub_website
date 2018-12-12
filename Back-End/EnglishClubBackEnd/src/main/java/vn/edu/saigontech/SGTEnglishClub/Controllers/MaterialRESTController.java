@@ -120,18 +120,26 @@ public class MaterialRESTController {
 
 	}
 
-	@RequestMapping(value = "/manage/material", method = RequestMethod.PUT)
-	public CustomResponseEntity updateMaterial(@RequestBody MaterialsNonMapping updateMa) {
+	@RequestMapping(value = "/manage/material/{id}", method = RequestMethod.PUT)
+	public CustomResponseEntity updateMaterial(@PathVariable("id") int id, 
+			@RequestParam("adminID") int adminID,
+			@RequestParam("eMaterialTypeID") int eMaterialTypeID, 
+			@RequestParam("title") String title,
+			@RequestParam("titleImage") MultipartFile image, 
+			@RequestParam("content") String content,
+			@RequestParam("postdate") String postDate,
+			@RequestParam("status") boolean status,
+			HttpServletRequest req) {
 		try {
 			Material materialHibernate = new Material();
-			materialHibernate.setAdmin((Admin) adminDAO.getAdminByID(updateMa.getAdminId()).getData());
-			materialHibernate.setId(updateMa.getId());
-			materialHibernate.setMaterialtype((Materialtype) eMTypeDAO.getMaterialtypeByID(updateMa.getId()).getData());
-			materialHibernate.setTitle(updateMa.getTitle());
-			materialHibernate.setTitlepicture(updateMa.getTitlepicture());
-			materialHibernate.setContent(updateMa.getContent());
-			materialHibernate.setPostdate(new SimpleDateFormat("dd/mm/yyyy").parse(updateMa.getPostdate()));
-			materialHibernate.setStatus(updateMa.isStatus());
+			materialHibernate.setAdmin((Admin) adminDAO.getAdminByID(adminID).getData());
+			materialHibernate.setId(id);
+			materialHibernate.setMaterialtype((Materialtype) eMTypeDAO.getMaterialtypeByID(eMaterialTypeID).getData());
+			materialHibernate.setTitle(title);
+//			materialHibernate.setTitlepicture();
+			materialHibernate.setContent(content);
+			materialHibernate.setPostdate(new SimpleDateFormat("dd/mm/yyyy").parse(postDate));
+			materialHibernate.setStatus(status);
 			return eMaDAO.updateMaterial(materialHibernate);
 		} catch (Exception e) {
 			e.printStackTrace();

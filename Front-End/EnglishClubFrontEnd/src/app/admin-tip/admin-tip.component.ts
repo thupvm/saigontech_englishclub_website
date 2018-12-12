@@ -125,7 +125,7 @@ export class AdminTipComponent implements OnInit {
     });
 
     $("#btnSave").click(function(){
-      var date = new Date();
+     
 
 
       var id = $("#hidId").val();
