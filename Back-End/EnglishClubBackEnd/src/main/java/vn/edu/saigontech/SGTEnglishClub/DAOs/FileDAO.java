@@ -1,6 +1,9 @@
 package vn.edu.saigontech.SGTEnglishClub.DAOs;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -9,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.edu.saigontech.SGTEnglishClub.Models.File;
 import vn.edu.saigontech.SGTEnglishClub.Responses.CustomResponseEntity;
+import vn.edu.saigontech.SGTEnglishClub.Utils.fileUploadUtils;
 
 
 @Transactional
@@ -66,11 +70,38 @@ public class FileDAO {
 		List<File> target = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			Query<?> qry = session.createQuery("from File f where f.material.id = :id and f.status = true").setParameter("id", id);
+			target = (List<File>) qry.list();
+			if (target.size() > 0) {
+				response.setErrorCode(0);
+				response.setMessage("This is File in material id equal " + id);
+				response.setData(target);
+			} else {
+				response.setErrorCode(2);
+				response.setMessage("This File is not exist");
+				response.setData(null);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setErrorCode(1);
+			response.setMessage("Error of database");
+			response.setData(null);
+		}
+
+		return response;
+	}
+	
+	public CustomResponseEntity getFileByMaterialIDAdmin(int id) {
+		CustomResponseEntity response = new CustomResponseEntity();
+		List<File> target = null;
+		try {
+			Session session = sessionFactory.getCurrentSession();
 			Query<?> qry = session.createQuery("from File f where f.material.id = :id").setParameter("id", id);
 			target = (List<File>) qry.list();
 			if (target.size() > 0) {
 				response.setErrorCode(0);
-				response.setMessage("This is File with material id equal " + id);
+				response.setMessage("This is File in material id equal " + id);
 				response.setData(target);
 			} else {
 				response.setErrorCode(2);
@@ -133,13 +164,16 @@ public class FileDAO {
 		return response;
 	}
 	
-	public CustomResponseEntity deleteFile(int id) {
+	public CustomResponseEntity deleteFile(int id, HttpServletRequest req) {
 		CustomResponseEntity response = new CustomResponseEntity();
 		File target = null;
+		
+		
+		
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			target = (File) getFileByID(id).getData();
-
+			
 			if (target != null) {
 				session.delete(target);
 				response.setErrorCode(0);
@@ -150,6 +184,14 @@ public class FileDAO {
 				response.setMessage("This File is not exist");
 				response.setData(null);
 			}
+			
+			boolean res = fileUploadUtils.deleteUploadFile(target.getName(), req.getServletContext().getRealPath("/images/"));
+			if (res == false) {
+				return CustomResponseEntity.getErrorRemovingResponse();
+			}
+			
+
+			
 
 		} catch (Exception e) {
 			response.setErrorCode(1);

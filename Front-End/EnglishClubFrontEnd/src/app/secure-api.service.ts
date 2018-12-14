@@ -42,4 +42,10 @@ export class SecureApiService {
   ematerialType = {
     getAll : {method : 'GET', url : this.connection.link + 'materialType'}
   };
+
+  file = {
+    getAll: {method : 'GET', url : this.connection.link + 'manage/file/material/'},
+    remove: {method : 'DELETE', url : this.connection.link + 'manage/file/'},
+    add: {method : 'POST', url : this.connection.link + 'manage/file'}
+  }
 }

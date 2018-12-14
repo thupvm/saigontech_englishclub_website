@@ -35,7 +35,7 @@ public class MaterialRESTController {
 
 	@Autowired
 	private MaterialDAO eMaDAO;
-	
+
 	@Autowired
 	private FileDAO fileDAO;
 
@@ -43,7 +43,7 @@ public class MaterialRESTController {
 	public CustomResponseEntity getAllMaterial() {
 		return eMaDAO.getAllMaterial();
 	}
-	
+
 	@RequestMapping(value = "/manage/material", method = RequestMethod.GET)
 	public CustomResponseEntity getAllMaterialAdmin() {
 		return eMaDAO.getAllMaterialAdmin();
@@ -104,7 +104,7 @@ public class MaterialRESTController {
 						fileUploadUtils.saveUploadedFile(ebook, req.getServletContext().getRealPath("/images/")), true);
 				fileDAO.addFile(currentEBook);
 			}
-			
+
 			return CustomResponseEntity.getOKResponse("Adding material and their ebook successfully!", resEMaterial);
 
 		} catch (Exception e) {
@@ -120,23 +120,24 @@ public class MaterialRESTController {
 
 	}
 
-	@RequestMapping(value = "/manage/material/{id}", method = RequestMethod.PUT)
-	public CustomResponseEntity updateMaterial(@PathVariable("id") int id, 
-			@RequestParam("adminID") int adminID,
-			@RequestParam("eMaterialTypeID") int eMaterialTypeID, 
-			@RequestParam("title") String title,
-			@RequestParam("titleImage") MultipartFile image, 
-			@RequestParam("content") String content,
-			@RequestParam("postdate") String postDate,
-			@RequestParam("status") boolean status,
-			HttpServletRequest req) {
+	@RequestMapping(value = "/manage/material/{id}", method = RequestMethod.POST)
+	public CustomResponseEntity updateMaterial(@PathVariable("id") int id, @RequestParam("adminID") int adminID,
+			@RequestParam("eMaterialTypeID") int eMaterialTypeID, @RequestParam("title") String title,
+			@RequestParam(value ="titleImage", required = false) MultipartFile image, @RequestParam("content") String content,
+			@RequestParam("postdate") String postDate, @RequestParam("status") boolean status, HttpServletRequest req) {
 		try {
-			Material materialHibernate = new Material();
+			Material materialHibernate = (Material) eMaDAO.getMaterialByID(id).getData();
 			materialHibernate.setAdmin((Admin) adminDAO.getAdminByID(adminID).getData());
 			materialHibernate.setId(id);
 			materialHibernate.setMaterialtype((Materialtype) eMTypeDAO.getMaterialtypeByID(eMaterialTypeID).getData());
 			materialHibernate.setTitle(title);
-//			materialHibernate.setTitlepicture();
+			if (image != null) {
+				fileUploadUtils.deleteUploadFile(materialHibernate.getTitlepicture(),
+						req.getServletContext().getRealPath("/images/"));
+
+				materialHibernate.setTitlepicture(
+						fileUploadUtils.saveUploadedFile(image, req.getServletContext().getRealPath("/images/")));
+			}
 			materialHibernate.setContent(content);
 			materialHibernate.setPostdate(new SimpleDateFormat("dd/mm/yyyy").parse(postDate));
 			materialHibernate.setStatus(status);
