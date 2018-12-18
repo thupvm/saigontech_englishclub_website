@@ -31,6 +31,10 @@ export class NonSecureApiService {
     getAll: {method : 'GET', url : this.connection.link + 'material'}
   }
 
+  news = {
+    getAll: {method : 'GET', url : this.connection.link + 'news'}
+  }
+
   file = {
     getAllByMaterialID: {method : 'GET', url : this.connection.link + 'file/material/'}
   }

@@ -19,6 +19,10 @@ import { AdminVideoComponent } from './admin-video/admin-video.component';
 import { AdminEMaterialComponent } from './admin-e-material/admin-e-material.component';
 import { AdminTipComponent } from './admin-tip/admin-tip.component';
 import { AdminNewsComponent } from './admin-news/admin-news.component';
+import { AdminVideoTypeComponent } from './admin-video-type/admin-video-type.component';
+import { AdminTipTypeComponent } from './admin-tip-type/admin-tip-type.component';
+import { AdminNewstypeComponent } from './admin-newstype/admin-newstype.component';
+import { AdminEMaterialTypeComponent } from './admin-e-material-type/admin-e-material-type.component';
 
 
 
@@ -37,7 +41,11 @@ import { AdminNewsComponent } from './admin-news/admin-news.component';
     AdminVideoComponent,
     AdminEMaterialComponent,
     AdminTipComponent,
-    AdminNewsComponent
+    AdminNewsComponent,
+    AdminVideoTypeComponent,
+    AdminTipTypeComponent,
+    AdminNewstypeComponent,
+    AdminEMaterialTypeComponent
   ],
   imports: [
     BrowserModule,

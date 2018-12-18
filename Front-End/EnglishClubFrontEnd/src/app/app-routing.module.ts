@@ -13,7 +13,10 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminEMaterialComponent } from './admin-e-material/admin-e-material.component';
 import { AdminTipComponent } from './admin-tip/admin-tip.component';
 import { AdminNewsComponent } from './admin-news/admin-news.component';
-
+import { AdminEMaterialTypeComponent } from './admin-e-material-type/admin-e-material-type.component';
+import { AdminTipTypeComponent } from './admin-tip-type/admin-tip-type.component';
+import { AdminNewstypeComponent } from './admin-newstype/admin-newstype.component';
+import { AdminVideoTypeComponent } from './admin-video-type/admin-video-type.component';
 
 const routes: Routes = [
 
@@ -46,6 +49,25 @@ const routes: Routes = [
         component: AdminHomeComponent
       },
 
+      {
+        path: 'ematerialtypes',
+        component: AdminEMaterialTypeComponent
+      },
+
+      {
+        path: 'newstypes',
+        component: AdminNewstypeComponent
+      },
+
+      {
+        path: 'tiptypes',
+        component: AdminTipTypeComponent
+      },
+
+      {
+        path: 'videotypes',
+        component: AdminVideoTypeComponent
+      },
     ]
 
   },

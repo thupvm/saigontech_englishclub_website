@@ -125,9 +125,6 @@ export class AdminTipComponent implements OnInit {
     });
 
     $("#btnSave").click(function(){
-     
-
-
       var id = $("#hidId").val();
       if (id == 0) {
         var addData = new FormData();
@@ -137,9 +134,6 @@ export class AdminTipComponent implements OnInit {
         addData.append("content", $("#txtContent").val());
         addData.append("titleImage", $("#fileChooser")[0].files[0]);
         addData.append("postDate", self.date2str(new Date, "dd/MM/yyyy"));
-       
-
-        
 
         $.ajax({
           url: addTipURL,

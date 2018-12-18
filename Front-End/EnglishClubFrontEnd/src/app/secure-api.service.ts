@@ -31,6 +31,13 @@ export class SecureApiService {
     update : {method : 'POST', url : this.connection.link + 'manage/material/'}
   };
 
+  news = {
+    getAll : {method : 'GET', url : this.connection.link + 'news'},
+    remove : {method : 'DELETE', url : this.connection.link + 'manage/news/'},
+    add : {method : 'POST', url : this.connection.link + 'manage/news'},
+    update : {method : 'PUT', url : this.connection.link + 'manage/news'}
+  };
+
   videoType = {
     getAll : {method : 'GET', url : this.connection.link + 'videoType'}
   };
@@ -40,12 +47,24 @@ export class SecureApiService {
   };
 
   ematerialType = {
-    getAll : {method : 'GET', url : this.connection.link + 'materialType'}
+    getAll : {method : 'GET', url : this.connection.link + 'materialType'},
   };
+
+  newsType = {
+    getAll : {method : 'GET', url : this.connection.link + 'newsType'},
+  };
+
 
   file = {
     getAll: {method : 'GET', url : this.connection.link + 'manage/file/material/'},
     remove: {method : 'DELETE', url : this.connection.link + 'manage/file/'},
     add: {method : 'POST', url : this.connection.link + 'manage/file'}
   }
+
+  ematerialTypes = {
+    getAll : {method : 'GET', url : this.connection.link + 'materialType'},
+    remove : {method : 'DELETE', url : this.connection.link + 'manage/materialType/'},
+    add : {method : 'POST', url : this.connection.link + 'manage/materialType'},
+    update : {method : 'PUT', url : this.connection.link + 'manage/materialType'}
+  };
 }

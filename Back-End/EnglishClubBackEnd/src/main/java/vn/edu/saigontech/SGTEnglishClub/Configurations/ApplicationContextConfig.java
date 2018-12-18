@@ -31,10 +31,6 @@ import vn.edu.saigontech.SGTEnglishClub.DAOs.TipTypeDAO;
 import vn.edu.saigontech.SGTEnglishClub.DAOs.VideoDAO;
 import vn.edu.saigontech.SGTEnglishClub.DAOs.VideoTypeDAO;
 
-
-
-
-
 @Configuration
 @ComponentScan("vn.edu.saigontech.SGTEnglishClub.*")
 @EnableTransactionManagement

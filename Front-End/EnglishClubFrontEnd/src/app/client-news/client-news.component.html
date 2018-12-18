@@ -1,3 +1,56 @@
-<p>
-  On developing :) Come back later.
-</p>
+<div class="container">
+  <div class="row">
+
+    <div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-lg-3 col-md-6 mb-4 tip-card" *ngFor="let news of news | paginate: { itemsPerPage: 8, currentPage: p }"
+      data-toggle="modal" data-target=".bd-example-modal-lg" (click)="openDetail(news.title, news.content);">
+      <div class="card h-100">
+        <img class="card-img-top" width="110px" height="150px" [src]="getImage(news.titlepicture)" alt="">
+        <div class="card-body">
+          <h4 class="card-title">
+            <h4 class="text-primary">{{news.title}}</h4>
+          </h4>
+          <p>Topic: {{news.newstype.name}}</p>
+        </div>
+        <div class="card-footer bg-primary">
+          <small class="text-white">Post by: {{news.admin.firstname}} {{news.admin.lastname}} on {{news.postdate}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+
+    <div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{newsTitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="newsContent">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

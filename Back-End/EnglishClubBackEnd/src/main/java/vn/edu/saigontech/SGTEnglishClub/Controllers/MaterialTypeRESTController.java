@@ -29,7 +29,7 @@ public class MaterialTypeRESTController {
 		return eMTypeDAO.getMaterialtypeByID(id);
 	}
 	
-	@RequestMapping(value = "/mamage/materialType", method = RequestMethod.POST)
+	@RequestMapping(value = "/manage/materialType", method = RequestMethod.POST)
 	public CustomResponseEntity addEMaterialType(@RequestBody Materialtype newEMType) {
 		return eMTypeDAO.addMaterialType(newEMType);
 	}
