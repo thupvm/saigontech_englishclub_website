@@ -2,11 +2,17 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/4.2.5.RELEASE/60bd0ac25869d515717284b77644d0416d3a38c5/spring-test-4.2.5.RELEASE.jar" sourcepath="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/4.2.5.RELEASE/be3a46bff26f49f65ee16d73a59ed22b7d5e6a34/spring-test-4.2.5.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>

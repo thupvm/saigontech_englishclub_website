@@ -67,4 +67,26 @@ export class SecureApiService {
     add : {method : 'POST', url : this.connection.link + 'manage/materialType'},
     update : {method : 'PUT', url : this.connection.link + 'manage/materialType'}
   };
+
+  tipTypes = {
+    getAll : {method : 'GET', url : this.connection.link + 'tipType'},
+    remove : {method : 'DELETE', url : this.connection.link + 'manage/tipType/'},
+    add : {method : 'POST', url : this.connection.link + 'manage/tipType'},
+    update : {method : 'PUT', url : this.connection.link + 'manage/tipType'}
+  };
+
+  newsTypes = {
+    getAll : {method : 'GET', url : this.connection.link + 'newsType'},
+    remove : {method : 'DELETE', url : this.connection.link + 'manage/newsType/'},
+    add : {method : 'POST', url : this.connection.link + 'manage/newsType'},
+    update : {method : 'PUT', url : this.connection.link + 'manage/newsType'}
+  };
+
+  videoTypes = {
+    getAll : {method : 'GET', url : this.connection.link + 'videoType'},
+    remove : {method : 'DELETE', url : this.connection.link + 'manage/videoType/'},
+    add : {method : 'POST', url : this.connection.link + 'manage/videoType'},
+    update : {method : 'PUT', url : this.connection.link + 'manage/videoType'}
+  };
+
 }

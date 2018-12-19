@@ -151,7 +151,7 @@ export class AdminEMaterialTypeComponent implements OnInit {
         "status": $("#typeStatus").val()
       }
 
-      alert(updateEMaterialTypesURL);
+      //alert(updateEMaterialTypesURL);
 
       $.ajax({
         url: updateEMaterialTypesURL,

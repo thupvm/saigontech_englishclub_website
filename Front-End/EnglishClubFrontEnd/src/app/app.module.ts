@@ -24,8 +24,6 @@ import { AdminTipTypeComponent } from './admin-tip-type/admin-tip-type.component
 import { AdminNewstypeComponent } from './admin-newstype/admin-newstype.component';
 import { AdminEMaterialTypeComponent } from './admin-e-material-type/admin-e-material-type.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

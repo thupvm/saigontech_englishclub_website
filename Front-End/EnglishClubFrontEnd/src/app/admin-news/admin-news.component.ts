@@ -29,7 +29,6 @@ var updateNewsMethod: string;
 export class AdminNewsComponent implements OnInit {
   newsTypes: any;
   constructor(private secureApi: SecureApiService, private cookie: CookieService) { }
-
   ngOnInit() {
     $("#ComponentTitle").text("News Management");
     self = this;
@@ -44,7 +43,6 @@ export class AdminNewsComponent implements OnInit {
     addNewsMethod = this.secureApi.news.add.method;
     updateNewsURL = this.secureApi.news.update.url;
     updateNewsMethod = this.secureApi.news.update.method;
-
 
     $.ajax({
       url: getAllNewsTypeURL,
@@ -93,109 +91,107 @@ export class AdminNewsComponent implements OnInit {
 
       },
       drawCallback: function (settings) {
-        // self.bindTableEvents();
+        self.bindTableEvents();
       }
     });
 
-    // $("#popup").modal({ show: false }).on('show.bs.modal', function () {
-    //   var id = $("#hidId").val();
-    //   if (id == 0) { //add
-    //     $("#txtTitle").val("");
-    //     $("#txtContent").val("");
-    //     $("#txtPicture").val("");
-    //   } else {
+    $("#popup").modal({ show: false }).on('show.bs.modal', function () {
+      var id = $("#hidId").val();
+      if (id == 0) { //add
+        $("#txtTitle").val("");
+        $("#txtContent").val("");
+        $("#txtPicture").val("");
+      } else {
        
-    //     $("#newsType").val(newsData.newstype.id);
-    //     $("#txtTitle").val(newsData.title);
-    //     $("#txtContent").froalaEditor('html.set', newsData.content);
-    //     $("#newsStatus").val(newsData.status+"");
-    //   }
-    // });
+        $("#newstype").val(newsData.newstype.id);
+        $("#txtTitle").val(newsData.title);
+        $("#txtContent").froalaEditor('html.set', newsData.content);
+        $("#newsStatus").val(newsData.status+"");
+      }
+    });
 
-    // $("#btnAdd").click(function () {
-    //   $("#hidId").val(0);
-    //   $("#popup").modal('show');
-    //   $("#statusForm").hide();
-    // });
+    $("#btnAdd").click(function () {
+      $("#hidId").val(0);
+      $("#popup").modal('show');
+      $("#statusForm").hide();
+    });
 
-    // $('textarea#txtContent').froalaEditor({
-    //   heightMin: 500,
-    //   heightMax: 500,
-    //   toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo']
-    // });
+    $('textarea#txtContent').froalaEditor({
+      heightMin: 500,
+      heightMax: 500,
+      toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo']
+    });
 
-    // $("#btnSave").click(function(){
-    //   var id = $("#hidId").val();
-    //   if (id == 0) {
-    //     var addData = new FormData();
-    //     addData.append("adminID", self.cookie.get("adminID"));
-    //     addData.append("newsTypeID", $("#newsType").val());
-    //     addData.append("title", $("#txtTitle").val());
-    //     addData.append("content", $("#txtContent").val());
-    //     addData.append("titleImage", $("#fileChooser")[0].files[0]);
-    //     addData.append("postDate", self.date2str(new Date, "dd/MM/yyyy"));
+    $("#btnSave").click(function(){
+      var id = $("#hidId").val();
+      if (id == 0) {
+        var addData = new FormData();
+        addData.append("adminID", self.cookie.get("adminID"));
+        addData.append("newsTypeID", $("#newstype").val());
+        addData.append("title", $("#txtTitle").val());
+        addData.append("content", $("#txtContent").val());
+        addData.append("titleImage", $("#fileChooser")[0].files[0]);
+        addData.append("postDate", self.date2str(new Date, "dd/MM/yyyy"));
 
-    //     $.ajax({
-    //       url: addNewsURL,
-    //       data: addData,
-    //       type: addNewsMethod,
-    //       processData: false,
-    //       contentType: false,
-    //       success: function (data) {
-    //         if (data.errorCode == 0) {
-    //           self.loadTable();
-    //           $("#popup").modal('hide');
-    //           $.alert('This news has been added!');
+        $.ajax({
+          url: addNewsURL,
+          data: addData,
+          type: addNewsMethod,
+          processData: false,
+          contentType: false,
+          success: function (data) {
+            if (data.errorCode == 0) {
+              self.loadTable();
+              $("#popup").modal('hide');
+              $.alert('News has been added!');
 
-    //         } else {
-    //           $.alert(data.message);
-    //         }
-    //       },
-    //       error: function (data) {
-    //         console.log(data);
-    //       }
-    //     });
-    //   } else {
+            } else {
+              $.alert(data.message);
+            }
+          },
+          error: function (data) {
+            console.log(data);
+          }
+        });
+      } else {
 
-    //     var updateData = new FormData();
-    //     updateData.append("adminID", self.cookie.get("adminID"));
-    //     updateData.append("newsTypeID", $("#newsType").val());
-    //     updateData.append("title", $("#txtTitle").val());
-    //     updateData.append("content", $("#txtContent").val());
-    //     if ($("#fileChooser")[0].files[0])
-    //       updateData.append("titleImage", $("#fileChooser")[0].files[0]);
-    //     else updateData.append("titleImage", null);
-    //     updateData.append("postDate", self.date2str(new Date, "dd/MM/yyyy"));
-    //     updateData.append("status", $("#newsStatus").val());
+        var updateData = new FormData();
+        updateData.append("adminID", self.cookie.get("adminID"));
+        updateData.append("newsTypeID", $("#newsType").val());
+        updateData.append("title", $("#txtTitle").val());
+        updateData.append("content", $("#txtContent").val());
+        if ($("#fileChooser")[0].files[0])
+          updateData.append("titleImage", $("#fileChooser")[0].files[0]);
+        else updateData.append("titleImage", null);
+        updateData.append("postDate", self.date2str(new Date, "dd/MM/yyyy"));
+        updateData.append("status", $("#newsStatus").val());
 
-    //     $.ajax({
-    //       url: updateNewsURL+newsData.id,
-    //       data: updateData,
-    //       type: updateNewsMethod,
-    //       processData: false,
-    //       contentType: false,
-    //       success: function (data) {
-    //         if (data.errorCode == 0) {
-    //           self.loadTable();
-    //           $("#popup").modal('hide');
-    //           $.alert('This news has been updated!');
+        $.ajax({
+          url: updateNewsURL+newsData.id,
+          data: updateData,
+          type: updateNewsMethod,
+          processData: false,
+          contentType: false,
+          success: function (data) {
+            if (data.errorCode == 0) {
+              self.loadTable();
+              $("#popup").modal('hide');
+              $.alert('News has been updated!');
 
-    //         } else {
-    //           $.alert(data.message);
-    //         }
-    //       },
-    //       error: function (data) {
-    //         console.log(data);
-    //       }
-    //     });
-    //   }
-    // });
-    this.loadTable();
+            } else {
+              $.alert(data.message);
+            }
+          },
+          error: function (data) {
+            console.log(data);
+          }
+        });
+      }
+    });
+
   }
 
   private loadTable() {
-  
-
     $.ajax({
       url: getAllNewsURL,
       type: getAllNewsMethod,
@@ -234,10 +230,10 @@ export class AdminNewsComponent implements OnInit {
                 type: deleteNewsMethod,
                 success: function (data) {
                   if (data.errorCode == 0) {
-                    $.alert('This news has been deleted!');
+                    $.alert('News has been deleted!');
                     self.loadTable();
                   } else {
-                    $.alert('This News has not been deleted!');
+                    $.alert('News has not been deleted!');
                   }
 
                 },
