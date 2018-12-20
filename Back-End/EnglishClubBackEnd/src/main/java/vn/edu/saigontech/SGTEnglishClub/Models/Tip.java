@@ -53,6 +53,14 @@ public class Tip  implements java.io.Serializable {
        this.postdate = postdate;
        this.status = status;
     }
+    
+    public Tip(String title, String titlepicture, String content, Date postdate, boolean status) {
+        this.title = title;
+        this.titlepicture = titlepicture;
+        this.content = content;
+        this.postdate = postdate;
+        this.status = status;
+     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
 

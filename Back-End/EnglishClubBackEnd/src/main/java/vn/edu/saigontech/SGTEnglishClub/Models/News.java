@@ -81,7 +81,7 @@ public class News  implements java.                                             
         this.admin = admin;
     }
 
-@ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="NEWSTYPEID", nullable=false)
     public Newstype getNewstype() {
         return this.newstype;
