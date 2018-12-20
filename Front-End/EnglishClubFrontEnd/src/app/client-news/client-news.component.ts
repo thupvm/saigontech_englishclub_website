@@ -49,10 +49,11 @@ export class ClientNewsComponent implements OnInit {
     return imageLink+imageName;
   }
 
-  openDetail(title: string, content: string){
+  openDetail(title: string, content: string, imageBig: string){
     this.newsTitle = title;
+    
     $("#newsContent").empty();
-
+    $("#newsContent").append("<img src='"+this.getImage(imageBig)+"' width='700px' height='500px'/> <br />");
     $("#newsContent").append(content);
   }
 

@@ -125,12 +125,15 @@ export class AdminNewsComponent implements OnInit {
     $("#btnSave").click(function(){
       var id = $("#hidId").val();
       if (id == 0) {
+        // alert(addNewsURL);
+        // alert(addNewsMethod);
         var addData = new FormData();
         addData.append("adminID", self.cookie.get("adminID"));
-        addData.append("newsTypeID", $("#newstype").val());
+        addData.append("newsTypeID", $("#newsType").val());
         addData.append("title", $("#txtTitle").val());
         addData.append("content", $("#txtContent").val());
-        addData.append("titleImage", $("#fileChooser")[0].files[0]);
+        addData.append("thumbnailImage", $("#fileChooser")[0].files[0]);
+        addData.append("bigImage", $("#fileChooser1")[0].files[0]);
         addData.append("postDate", self.date2str(new Date, "dd/MM/yyyy"));
 
         $.ajax({
@@ -161,13 +164,17 @@ export class AdminNewsComponent implements OnInit {
         updateData.append("title", $("#txtTitle").val());
         updateData.append("content", $("#txtContent").val());
         if ($("#fileChooser")[0].files[0])
-          updateData.append("titleImage", $("#fileChooser")[0].files[0]);
-        else updateData.append("titleImage", null);
+          updateData.append("thumbnailImage", $("#fileChooser")[0].files[0]);
+        else updateData.append("thumbnailImage", null);
+        if ($("#fileChooser1")[0].files[0])
+          updateData.append("bigImage", $("#fileChooser1")[0].files[0]);
+        else updateData.append("bigImage", null);
         updateData.append("postDate", self.date2str(new Date, "dd/MM/yyyy"));
         updateData.append("status", $("#newsStatus").val());
 
+
         $.ajax({
-          url: updateNewsURL+newsData.id,
+          url: updateNewsURL+"/"+newsData.id,
           data: updateData,
           type: updateNewsMethod,
           processData: false,
