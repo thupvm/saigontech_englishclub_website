@@ -1,15 +1,11 @@
 package vn.edu.saigontech.SGTEnglishClub.Controllers;
 
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import vn.edu.saigontech.SGTEnglishClub.DAOs.MaterialTypeDAO;
 import vn.edu.saigontech.SGTEnglishClub.Models.Materialtype;
 import vn.edu.saigontech.SGTEnglishClub.Responses.CustomResponseEntity;
@@ -21,6 +17,11 @@ public class MaterialTypeRESTController {
 	
 	@RequestMapping(value = "/materialType", method = RequestMethod.GET)
 	public CustomResponseEntity getAllMaterialTypes() {
+		return eMTypeDAO.getAllMaterialtypeAdmin();
+	}
+	
+	@RequestMapping(value = "active/materialType", method = RequestMethod.GET)
+	public CustomResponseEntity getAllActiveMaterialTypes() {
 		return eMTypeDAO.getAllMaterialtype();
 	}
 	

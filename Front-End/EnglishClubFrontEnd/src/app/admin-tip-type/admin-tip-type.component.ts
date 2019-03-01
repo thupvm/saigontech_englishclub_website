@@ -38,7 +38,7 @@ export class AdminTipTypeComponent implements OnInit {
 
     self = this;
 
-    getAllTipTypesURL = this.secureApi.tipTypes.getAll.url;
+    getAllTipTypesURL = this.secureApi.tipTypes.getAllActive.url;
     getAllTipTypesMethod = this.secureApi.tipTypes.getAll.method;
 
     addTipTypesURL = this.secureApi.tipTypes.add.url;

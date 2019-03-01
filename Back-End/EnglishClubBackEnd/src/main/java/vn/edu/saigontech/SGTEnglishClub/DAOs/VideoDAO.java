@@ -31,7 +31,7 @@ public class VideoDAO {
 	public CustomResponseEntity getAllVideoForClient() {
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			Query<?> qry = session.createQuery("from Video v where v.status = true order by v.id desc");
+			Query<?> qry = session.createQuery("from Video v where v.videotype.status = true and v.status = true order by v.id desc");
 			List<Video> videoArr = (List<Video>) qry.list();
 			System.out.println(videoArr.size());
 			return CustomResponseEntity.getOKResponse("This is the list of video", videoArr);

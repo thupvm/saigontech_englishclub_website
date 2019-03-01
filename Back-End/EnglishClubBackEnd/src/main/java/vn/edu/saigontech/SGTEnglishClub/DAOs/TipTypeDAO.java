@@ -40,6 +40,27 @@ public class TipTypeDAO {
 		
 	}
 	
+	public CustomResponseEntity getAllActiveTipsTypes() {
+		CustomResponseEntity respond = new CustomResponseEntity();
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query<?> qry = session.createQuery("from TipType t where t.status = true");
+			
+			respond.setErrorCode(0);
+			respond.setMessage("This is all Tip Types");
+			respond.setData(qry.list());
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			respond.setErrorCode(1);
+			respond.setMessage("Error of database");
+			respond.setData(e.getMessage());
+		}
+		return respond;
+		
+	}
+	
 	public CustomResponseEntity getTipTypeByID(int id) {
 		CustomResponseEntity response = new CustomResponseEntity();
 		List<TipType> targetSpec = null;

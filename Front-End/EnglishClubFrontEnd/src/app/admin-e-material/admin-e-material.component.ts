@@ -66,8 +66,8 @@ export class AdminEMaterialComponent implements OnInit {
     deleteEMaterialURL = this.secureApi.ematerial.remove.url;
     deleteEMaterialMethod = this.secureApi.ematerial.remove.method;
 
-    getAllEMaterialTypeURL = this.secureApi.ematerialType.getAll.url;
-    getAllEMaterialTypeMethod = this.secureApi.ematerialType.getAll.method;
+    getAllEMaterialTypeURL = this.secureApi.ematerialTypes.getAllActive.url;
+    getAllEMaterialTypeMethod = this.secureApi.ematerialTypes.getAllActive.method;
 
     getAllFileByMaterialIDURL = this.secureApi.file.getAll.url;
     getAllFileByMaterialIDMethod = this.secureApi.file.getAll.method;

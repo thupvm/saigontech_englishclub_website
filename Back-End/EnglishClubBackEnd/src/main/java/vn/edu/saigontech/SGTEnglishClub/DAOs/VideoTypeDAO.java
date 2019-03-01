@@ -15,6 +15,18 @@ public class VideoTypeDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	public CustomResponseEntity getAllActiveVideoType() {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query<?> qry = session.createQuery("from Videotype v where v.status = true");
+			List<Videotype> videoTypeArr = (List<Videotype>) qry.list();
+			System.out.println(videoTypeArr.size());
+			return CustomResponseEntity.getOKResponse("This is the list of video type", videoTypeArr);
+		} catch (Exception e) {
+			return CustomResponseEntity.getDatabaseErrorResponse();
+		}
+	}
+	
 	public CustomResponseEntity getAllVideoType() {
 		try {
 			Session session = sessionFactory.getCurrentSession();

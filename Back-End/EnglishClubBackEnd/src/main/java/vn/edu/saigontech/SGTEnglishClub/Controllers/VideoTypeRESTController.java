@@ -21,6 +21,11 @@ public class VideoTypeRESTController {
 		return videoTypeDao.getAllVideoType();
 	}
 	
+	@RequestMapping(value="/active/videoType", method=RequestMethod.GET)
+	public CustomResponseEntity getAllActiveVideoTypes() {
+		return videoTypeDao.getAllActiveVideoType();
+	}
+	
 	@RequestMapping(value="/videoType/{id}", method=RequestMethod.GET)
 	public CustomResponseEntity getVideoTypeById(@PathVariable int id) {
 		return videoTypeDao.getVideoTypeByID(id);

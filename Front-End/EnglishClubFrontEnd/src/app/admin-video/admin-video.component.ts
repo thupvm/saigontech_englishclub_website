@@ -35,8 +35,8 @@ export class AdminVideoComponent implements OnInit {
     $("#ComponentTitle").text("Videos Management");
     self = this;
 
-    getAllVideoTypeURL = this.secureApi.videoType.getAll.url;
-    getAllVideoTypeMethod = this.secureApi.videoType.getAll.method;
+    getAllVideoTypeURL = this.secureApi.videoTypes.getAllActive.url;
+    getAllVideoTypeMethod = this.secureApi.videoTypes.getAllActive.method;
     getAllVideoURL = this.secureApi.video.getAll.url;
     getAllVideoMethod = this.secureApi.video.getAll.method;
     deleteVideoURL = this.secureApi.video.remove.url;

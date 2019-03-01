@@ -38,10 +38,6 @@ export class SecureApiService {
     update : {method : 'POST', url : this.connection.link + 'manage/news'}
   };
 
-  videoType = {
-    getAll : {method : 'GET', url : this.connection.link + 'videoType'}
-  };
-
   tipType = {
     getAll : {method : 'GET', url : this.connection.link + 'tipType'}
   };
@@ -63,6 +59,7 @@ export class SecureApiService {
 
   ematerialTypes = {
     getAll : {method : 'GET', url : this.connection.link + 'materialType'},
+    getAllActive : {method : 'GET', url : this.connection.link + 'active/materialType'},
     remove : {method : 'DELETE', url : this.connection.link + 'manage/materialType/'},
     add : {method : 'POST', url : this.connection.link + 'manage/materialType'},
     update : {method : 'PUT', url : this.connection.link + 'manage/materialType'}
@@ -70,6 +67,7 @@ export class SecureApiService {
 
   tipTypes = {
     getAll : {method : 'GET', url : this.connection.link + 'tipType'},
+    getAllActive : {method : 'GET', url : this.connection.link + 'active/tipType'},
     remove : {method : 'DELETE', url : this.connection.link + 'manage/tipType/'},
     add : {method : 'POST', url : this.connection.link + 'manage/tipType'},
     update : {method : 'PUT', url : this.connection.link + 'manage/tipType'}
@@ -84,6 +82,7 @@ export class SecureApiService {
 
   videoTypes = {
     getAll : {method : 'GET', url : this.connection.link + 'videoType'},
+    getAllActive : {method : 'GET', url : this.connection.link + 'active/videoType'},
     remove : {method : 'DELETE', url : this.connection.link + 'manage/videoType/'},
     add : {method : 'POST', url : this.connection.link + 'manage/videoType'},
     update : {method : 'PUT', url : this.connection.link + 'manage/videoType'}

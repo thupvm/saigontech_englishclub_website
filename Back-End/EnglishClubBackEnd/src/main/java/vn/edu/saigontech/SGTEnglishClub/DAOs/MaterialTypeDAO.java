@@ -17,7 +17,7 @@ public class MaterialTypeDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public CustomResponseEntity getAllMaterialtype() {
+	public CustomResponseEntity getAllMaterialtypeAdmin() {
 		CustomResponseEntity response = new CustomResponseEntity();
 		try {
 			Session session = sessionFactory.getCurrentSession();
@@ -36,6 +36,24 @@ public class MaterialTypeDAO {
 		return response;
 	}
 
+	public CustomResponseEntity getAllMaterialtype() {
+		CustomResponseEntity response = new CustomResponseEntity();
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query<?> qry = session.createQuery("from Materialtype m where m.status = true");
+
+			response.setErrorCode(0);
+			response.setMessage("This is all E-Material Types");
+			response.setData(qry.list());
+
+		} catch (Exception e) {
+			response.setErrorCode(1);
+			response.setMessage("Error of database");
+			response.setData(e.getMessage());
+		}
+
+		return response;
+	}
 
 	public CustomResponseEntity getMaterialtypeByID(int id) {
 		CustomResponseEntity response = new CustomResponseEntity();
@@ -63,7 +81,7 @@ public class MaterialTypeDAO {
 
 		return response;
 	}
-	
+
 	public CustomResponseEntity getMaterialTypeByTitleName(String name) {
 		CustomResponseEntity response = new CustomResponseEntity();
 		List<Materialtype> targetSpec = null;
@@ -101,7 +119,7 @@ public class MaterialTypeDAO {
 			response.setData(null);
 			return response;
 		}
-		
+
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.persist(newEMType);
@@ -147,7 +165,7 @@ public class MaterialTypeDAO {
 
 	public CustomResponseEntity updateMaterialType(Materialtype updateEMType) {
 		CustomResponseEntity response = new CustomResponseEntity();
-		
+
 		String validString = MaterialTypeValidator.isValidForUpdating(updateEMType);
 		System.out.println(validString);
 		if (validString != "") {
@@ -156,15 +174,14 @@ public class MaterialTypeDAO {
 			response.setData(null);
 			return response;
 		}
-		
+
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.merge(updateEMType);
 			response.setErrorCode(0);
 			response.setMessage("Update this E-Material Type successfully");
 			response.setData(updateEMType);
-		}
-		 catch (Exception e) {
+		} catch (Exception e) {
 			response.setErrorCode(1);
 			response.setMessage("Error of database");
 			response.setData(e.getMessage());

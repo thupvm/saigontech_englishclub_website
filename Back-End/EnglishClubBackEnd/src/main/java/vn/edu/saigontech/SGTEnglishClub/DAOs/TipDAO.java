@@ -41,7 +41,7 @@ public class TipDAO {
 		CustomResponseEntity response = new CustomResponseEntity();
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			Query<?> qry = session.createQuery("from Tip t where t.status = true order by t.id desc");
+			Query<?> qry = session.createQuery("from Tip t where t.tiptype.status = true and t.status = true order by t.id desc");
 
 			response.setErrorCode(0);
 			response.setMessage("This is List of all Tip");

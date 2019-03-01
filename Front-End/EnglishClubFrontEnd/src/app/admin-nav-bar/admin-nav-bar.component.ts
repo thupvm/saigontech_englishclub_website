@@ -15,6 +15,10 @@ export class AdminNavBarComponent implements OnInit {
 
   ngOnInit() {
     this.fullName = this.cookie.get("fullName"); 
+
+    if (this.fullName == ""){
+      this.router.navigate(['/admin/login']);
+    }
   }
 
 }

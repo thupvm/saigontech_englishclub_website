@@ -23,6 +23,11 @@ public class TipTypeRESTController {
 		return tipTypeDao.getAllTipsTypes();
 	}
 	
+	@RequestMapping(value="/active/tipType", method=RequestMethod.GET)
+	public CustomResponseEntity getAllActiveTipTypes() {
+		return tipTypeDao.getAllTipsTypes();
+	}
+	
 	@RequestMapping(value="/tipType/{id}", method=RequestMethod.GET)
 	public CustomResponseEntity getTipTypeById(@PathVariable int id) {
 		return tipTypeDao.getTipTypeByID(id);
